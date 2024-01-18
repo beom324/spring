@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<th>부서번호</th>
+			<th>부서명</th>
+			<th>부서위치</th>
+		</tr>
+		<tr>
+			<td>${list.dno}</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</body>
+</html>
