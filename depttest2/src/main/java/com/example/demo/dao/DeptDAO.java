@@ -11,6 +11,10 @@ import com.example.demo.vo.DeptVO;
 @Repository
 public class DeptDAO {
 
+	public DeptVO findById(int dno) {
+		return DBManager.findById(dno);
+	}
+	
 	public List<DeptVO> findAll(){
 		return DBManager.findAll();
 	}
@@ -19,4 +23,10 @@ public class DeptDAO {
 		return DBManager.insertDept(vo);
 	}
 	
+	public int updateDept(DeptVO vo) {
+		return DBManager.updateDept(vo);
+	}
+	public int deleteDept(int dno) {
+		return DBManager.deleteDept(dno);
+	}
 }

@@ -35,10 +35,36 @@ public class DBManager {
 	public static int insertDept(DeptVO vo) {
 		int re = -1;
 		SqlSession session = factory.openSession();
-		re = session.insert("dept.insert",vo);
+		re = session.insert("dept.insert",vo);//값을 받아와야하기때문에 매개변수 2개인것 선택.
 		//데이터베이스에 변동이 있는 sql(insert,update,delete)인 경우에는 반드시 commit을 해야 반영이 됩니다.
 		session.commit();
 		session.close();
 		return re;
 	}
+	
+	public static DeptVO findById(int dno) {
+		DeptVO vo = null;
+		SqlSession session = factory.openSession();
+		vo = session.selectOne("dept.findById",dno);//where절에 필요한것
+		session.close();
+		return vo;
+	}
+	public static int updateDept(DeptVO vo) {
+		int re = -1;
+		SqlSession session = factory.openSession();
+		re= session.update("dept.update", vo); //만약 2개가 update되는 것중에 한개라도 안된다면 session.rollback
+		session.commit();
+		session.close();
+		return re;
+				
+	}
+	public static int deleteDept(int dno) {
+		int re = -1;
+		SqlSession session = factory.openSession();
+		re=session.delete("dept.delete",dno);
+		session.commit();
+		session.close();
+		return re;
+	}
+	
 }

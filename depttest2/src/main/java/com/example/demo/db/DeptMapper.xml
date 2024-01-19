@@ -9,5 +9,14 @@
   <insert id="insert" parameterType="deptVO">
   	insert into dept values(#{dno},#{dname},#{dloc}) <!-- vo에 있는 속성명 -->
   </insert>
+  <select id="findById" resultType="deptVO">
+  select * from dept where dno = #{dno}
+  </select>
+  <update id="update" parameterType="deptVO">
+  	update dept set  dname=#{dname}, dloc=#{dloc} where dno=#{dno}
+  </update>
+  <delete id="delete" parameterType="int">
+  	delete dept where dno=#{dno}
+  </delete>
   
 </mapper>
