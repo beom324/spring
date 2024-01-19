@@ -63,8 +63,6 @@ public class DeptController {
 			model.addAttribute("msg","부서 수정에 실패하였습니다");
 			return "error";
 		}
-				
-		
 		
 	}
 	@GetMapping("/deleteDept")
