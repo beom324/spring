@@ -40,6 +40,7 @@ public class InsertGoodsController {
 		String fname = null; //업로드한 파일 정보를 알아오기 위한 변수 선언
 		int re = -1;
 		MultipartFile uploadFile = vo.getUploadFile();
+		
 		/* uploadFile null체크로는 파일이 있는지 없는지 검사할 수 없다.
 		if(uploadFile !=null) {
 			System.out.println("업로드 파일이 있습니다");
