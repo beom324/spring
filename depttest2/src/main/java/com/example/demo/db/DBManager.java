@@ -7,8 +7,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.demo.vo.DeptVO;
+
 
 public class DBManager {
 	private static SqlSessionFactory factory;
@@ -40,7 +42,7 @@ public class DBManager {
 		session.commit();
 		session.close();
 		return re;
-	}
+	}	
 	
 	public static DeptVO findById(int dno) {
 		DeptVO vo = null;
@@ -49,14 +51,13 @@ public class DBManager {
 		session.close();
 		return vo;
 	}
-	public static int updateDept(DeptVO vo) {
+	public static int updateDept(@ModelAttribute DeptVO vo) {
 		int re = -1;
 		SqlSession session = factory.openSession();
 		re= session.update("dept.update", vo); //만약 2개가 update되는 것중에 한개라도 안된다면 session.rollback
 		session.commit();
 		session.close();
-		return re;
-				
+		return re;				
 	}
 	public static int deleteDept(int dno) {
 		int re = -1;
@@ -66,5 +67,4 @@ public class DBManager {
 		session.close();
 		return re;
 	}
-	
 }
