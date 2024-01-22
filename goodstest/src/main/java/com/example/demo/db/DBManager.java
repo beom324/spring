@@ -57,5 +57,13 @@ public class DBManager {
 		session.close();
 		return vo;
 	}
+	public static int updateGoods(GoodsVO vo) {
+		int re = 0;
+		SqlSession session =factory.openSession();
+		re = session.update("goods.updateGoods",vo);
+		session.commit();
+		session.close();
+		return re;
+	}
 
 }

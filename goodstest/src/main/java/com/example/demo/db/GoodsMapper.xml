@@ -15,4 +15,7 @@
   <select id="findById" parameterType="int" resultType="goodsVO">
   	select * from goods where no=#{no}
   </select>
+  <update id="updateGoods" parameterType="goodsVO">
+  	update goods set no=#{no}, name=#{name}, price=#{price}, qty=#{qty}, fname=#{fname} where no=#{no} 
+  </update>
 </mapper>

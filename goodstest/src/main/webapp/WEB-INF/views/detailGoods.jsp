@@ -32,6 +32,7 @@
 		</tr>
 	</table>
 	<a href = "listGoods"> 목록으로</a>
+	<a href = "updateGoods?no=${list.no }">상품수정</a>
 	
 </body>
 </html>

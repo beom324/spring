@@ -24,5 +24,8 @@ public class GoodsDAO {
 	public GoodsVO findById(int dno) {
 		return DBManager.findById(dno);
 	}
+	public int updateGoods(GoodsVO vo) {
+		return DBManager.updateGoods(vo);
+	}
 	
 }
