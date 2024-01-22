@@ -15,5 +15,11 @@ public class GoodsDAO {
 		return DBManager.findAll();
 		
 	}
+	public int nextNo() {
+		return DBManager.nextNo();
+	}
+	public int insertGoods(GoodsVO vo) {
+		return DBManager.insertGoods(vo);
+	}
 	
 }

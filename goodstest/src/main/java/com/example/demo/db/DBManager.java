@@ -34,5 +34,21 @@ public class DBManager {
 		return list;
 
 	}
+	public static int nextNo() {
+		int re = 0;
+		SqlSession session = factory.openSession();
+		re = session.selectOne("goods.nextNo");
+		session.close();
+		return re;
+	}
+	public static int insertGoods(GoodsVO vo) {
+		int re = 0;
+		SqlSession session = factory.openSession();
+		re= session.insert("goods.insertGoods",vo);
+		session.commit();
+		session.close();
+		
+		return re;
+	}
 
 }

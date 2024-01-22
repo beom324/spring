@@ -14,8 +14,8 @@ public class GoodsVO {
 	private String name;
 	private int price;
 	private int qty;
-	private String fname;
-	private MultipartFile uploadFile;
+	private String fname; //파일의 이름
+	private MultipartFile uploadFile; //파일의 내용
 	
 	
 }

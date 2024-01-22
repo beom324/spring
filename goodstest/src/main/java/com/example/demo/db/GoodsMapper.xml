@@ -6,4 +6,10 @@
   <select id="findAll" resultType="goodsVO">
     select * from Goods
   </select>
+  <select id="nextNo" resultType="int">
+  	select nvl(max(no),0)+1 from goods
+  </select>
+  <select id="insertGoods" parameterType="goodsVO">
+  	insert into goods values(#{no},#{name},#{price},#{qty},#{fname})
+  </select>
 </mapper>
