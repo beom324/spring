@@ -11,7 +11,7 @@ import java.util.Map;
 public class ItemRepository {
     private static final Map<Long,Item> store = new HashMap<>();//static Map의 key값은 ID자료형과 맞춤
     //멀티쓰레드환경에서는 HashMap사용하면 안됨, 사용하고싶다면 ConcurrentHashMap사용해야함
-    private static long sequence =0l;//static,얘도 동시접근하면 꼬일 수 있어서
+    private static long sequence =0l;//static,얘도 동시접근하면 꼬일 수 있어서 AtomicLong 사용 권장
 
     public Item save(Item item){
         item.setId(++sequence);
