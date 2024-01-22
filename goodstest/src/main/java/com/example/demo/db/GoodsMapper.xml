@@ -9,7 +9,10 @@
   <select id="nextNo" resultType="int">
   	select nvl(max(no),0)+1 from goods
   </select>
-  <select id="insertGoods" parameterType="goodsVO">
+  <insert id="insertGoods" parameterType="goodsVO">
   	insert into goods values(#{no},#{name},#{price},#{qty},#{fname})
+  </insert>
+  <select id="findById" parameterType="int" resultType="goodsVO">
+  	select * from goods where no=#{no}
   </select>
 </mapper>

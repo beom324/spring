@@ -36,8 +36,8 @@ public class InsertGoodsController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView submit(GoodsVO vo, HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("redirect:/listGoods");
-		String path = req.getServletContext().getRealPath("images");
-		String fname = null;
+		String path = req.getServletContext().getRealPath("images");//파일의 실 경로를 알아옴
+		String fname = null; //업로드한 파일 정보를 알아오기 위한 변수 선언
 		int re = -1;
 		MultipartFile uploadFile = vo.getUploadFile();
 		/* uploadFile null체크로는 파일이 있는지 없는지 검사할 수 없다.
@@ -47,14 +47,14 @@ public class InsertGoodsController {
 			System.out.println("업로드 파일이 없습니다");
 		}
 		 */
-		fname = uploadFile.getOriginalFilename();
+		fname = uploadFile.getOriginalFilename();//업로드한 파일의 이름을 가져옴
 		if(fname!=null && !fname.equals("")) {//업로드한 파일이 있으면
 			try {
 				byte[] data = uploadFile.getBytes();
 				FileOutputStream fos = new FileOutputStream(path + "/" + fname);
 				fos.write(data);
 				fos.close();
-				vo.setFname(fname);
+				vo.setFname(fname); 
 				
 			}catch(Exception e) {
 				System.out.println("파일 업로드 오류 : " + e.getMessage());

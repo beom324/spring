@@ -50,5 +50,12 @@ public class DBManager {
 		
 		return re;
 	}
+	public static GoodsVO findById(int no) {
+		GoodsVO vo = new GoodsVO();
+		SqlSession session = factory.openSession();
+		vo = session.selectOne("goods.findById",no);
+		session.close();
+		return vo;
+	}
 
 }

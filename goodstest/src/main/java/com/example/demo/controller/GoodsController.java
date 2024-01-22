@@ -24,4 +24,9 @@ public class GoodsController {
 		model.addAttribute("list",dao.findAll());
 		return "listGoods";
 	}
+	@GetMapping("/detailGoods")
+	public String detailGoods(Model model,int no) {
+		model.addAttribute("list",dao.findById(no));
+		return "detailGoods";
+	}
 }

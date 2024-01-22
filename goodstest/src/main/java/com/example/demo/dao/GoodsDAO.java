@@ -21,5 +21,8 @@ public class GoodsDAO {
 	public int insertGoods(GoodsVO vo) {
 		return DBManager.insertGoods(vo);
 	}
+	public GoodsVO findById(int dno) {
+		return DBManager.findById(dno);
+	}
 	
 }
