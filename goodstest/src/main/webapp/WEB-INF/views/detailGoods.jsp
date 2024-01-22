@@ -30,9 +30,11 @@
 			<th>상품사진</th>
 			<th><img src="./images/${list.fname }" width="150" height="150"></th>
 		</tr>
+		<input type="hidden" value="${list.fname }">
 	</table>
 	<a href = "listGoods"> 목록으로</a>
 	<a href = "updateGoods?no=${list.no }">상품수정</a>
+	<a href = "deleteGoods?no=${list.no }">상품삭제</a>
 	
 </body>
 </html>

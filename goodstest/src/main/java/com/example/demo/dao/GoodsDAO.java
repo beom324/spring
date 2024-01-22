@@ -27,5 +27,8 @@ public class GoodsDAO {
 	public int updateGoods(GoodsVO vo) {
 		return DBManager.updateGoods(vo);
 	}
+	public int deleteGoods(int no) {
+		return DBManager.deleteGoods(no);
+	}
 	
 }

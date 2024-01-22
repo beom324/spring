@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,5 +71,20 @@ public class GoodsController {
 
 
 		return "redirect:/listGoods";
+	}
+	@GetMapping("deleteGoods")
+	public String deleteGoods(int no,Model model,HttpServletRequest req) {
+		String view = "redirect:/listGoods";
+		String fname = dao.findById(no).getFname();
+		int re = dao.deleteGoods(no);
+		if(re==1) {
+			String path = req.getServletContext().getRealPath("images");			
+			File file = new File(path+"/"+fname); 			
+			file.delete();
+		}else {
+			model.addAttribute("msg", "상품 삭제에 실패하였습니다");
+			view = "error";
+		}
+		return view;
 	}
 }

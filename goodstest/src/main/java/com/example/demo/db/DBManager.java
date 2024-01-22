@@ -65,5 +65,14 @@ public class DBManager {
 		session.close();
 		return re;
 	}
+	public static int deleteGoods(int no) {
+		int re = 0;
+		SqlSession session = factory.openSession();
+		re= session.delete("goods.deleteGoods",no);
+		session.commit();
+		session.close();
+		return re;
+		
+	}
 
 }

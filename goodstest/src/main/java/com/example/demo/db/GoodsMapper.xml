@@ -18,4 +18,7 @@
   <update id="updateGoods" parameterType="goodsVO">
   	update goods set no=#{no}, name=#{name}, price=#{price}, qty=#{qty}, fname=#{fname} where no=#{no} 
   </update>
+  <delete id="deleteGoods" parameterType="int">
+  	delete goods where no=#{no}
+  </delete>
 </mapper>
