@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.example.demo.vo.BoardVO;
 import com.example.demo.vo.GoodsVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +72,24 @@ public class DBManager {
 		re= session.delete("goods.deleteGoods",no);
 		session.commit();
 		session.close();
-		return re;
+		return re;		
+	}
+	
+	public static List<BoardVO> listBoard(){
+		List<BoardVO> list = null;
+		SqlSession session = factory.openSession();
+		list = session.selectList("board.findAll");
+		session.close();
+		return list;
+		
+	}
+	public static BoardVO findByIdBoard(int no) {
+		BoardVO vo = null;
+		SqlSession session = factory.openSession();
+		vo = session.selectOne("board.findById",no);
+		session.close();
+		return vo;
+				
 		
 	}
 
