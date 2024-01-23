@@ -10,4 +10,4 @@ public class GoodstestApplication {
 		SpringApplication.run(GoodstestApplication.class, args);
 	}
 
-}	
+}		

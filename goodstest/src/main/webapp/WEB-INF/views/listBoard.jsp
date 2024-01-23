@@ -10,6 +10,7 @@
 </head>
 <h1>게시판목록</h1>
 <hr>
+<a href="insertBoard" >등록</a>
 <body>
 	<table border="1" width="80%">
 		<tr >
@@ -18,15 +19,30 @@
 			<th>작성자</th>
 			<th>등록일</th>
 		</tr>
-		<c:forEach items="${list}" var="list">
-		
-		<tr style="text-align:center">
-			<td>${list.no }</td>
-			<td><a href="detailBoard?no=${list.no}">${list.title }</a></td>
-			<td>${list.writer }</td>
-			<td><f:formatDate pattern="yyyy-MM-dd" value="${list.regdate }"/></td>
-		</tr>
+
+		<c:forEach var="b"  items="${list}">
+			<tr>
+				<td>${b.no }</td>
+				<td>
+					
+					<c:if test="${b.b_level > 0 }">
+						<c:forEach var="i" begin="1" end="${b.b_level }">
+							&nbsp;&nbsp;
+						</c:forEach>
+						<img src="re.png" width="20" height="20">
+					</c:if>
+					<a href="detailBoard?no=${b.no }">${b.title }</a>
+					
+					
+				</td>
+				<td>${b.writer }</td>
+				<td>${b.regdate }</td>
+			</tr>			
 		</c:forEach>
 	</table>
+	<a href="insertBoard"> 게시물 등록</a><br>
+		<c:forEach var="i" begin="1" end="${totalPage}">
+			<a href="listBoard?pageNum=${i}">${i}</a>
+		</c:forEach>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.demo.db;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -28,7 +29,7 @@ public class DBManager {
 	}
 
 	public static List<GoodsVO> findAll() {
-		List<GoodsVO> list = null;
+		List<GoodsVO> list = null;		
 		SqlSession session = factory.openSession();
 		list = session.selectList("goods.findAll");
 		session.close();
@@ -75,10 +76,10 @@ public class DBManager {
 		return re;		
 	}
 	
-	public static List<BoardVO> listBoard(){
-		List<BoardVO> list = null;
+	public static List<BoardVO> listBoard(HashMap<String, Object> map){
+
 		SqlSession session = factory.openSession();
-		list = session.selectList("board.findAll");
+		List<BoardVO> list = session.selectList("board.findAll",map);
 		session.close();
 		return list;
 		
@@ -88,9 +89,40 @@ public class DBManager {
 		SqlSession session = factory.openSession();
 		vo = session.selectOne("board.findById",no);
 		session.close();
-		return vo;
-				
+		return vo;						
+	}
+	public static int insertBoard(BoardVO vo) {
+		int re = 0;
+		SqlSession session = factory.openSession();
+		re=session.insert("board.insertBoard",vo);
+		session.commit();
+		session.close();
+		return re;
+	}
+	public static int nextBoardNo() {
+		int re=0;
+		SqlSession session = factory.openSession();
+		re = session.selectOne("board.nextNo");
+		session.close();
+		return re;
+	}
+
+	public static void updateStep(int b_ref, int b_step) {
+		SqlSession session = factory.openSession(true);
+		HashMap<String, Integer> map = new HashMap<String,Integer>();
+		map.put("b_ref", b_ref);
+		map.put("b_step", b_step);
+		session.update("board.updateStep",map);
+		session.close();
 		
 	}
+	public static int getTotalRecord() {
+		int re=0;
+		SqlSession session = factory.openSession();
+		re =session.selectOne("board.getTotalRecord");
+		session.close();
+		return re;
+	}
+	
 
 }
