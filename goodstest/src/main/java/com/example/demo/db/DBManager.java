@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.vo.BoardVO;
 import com.example.demo.vo.GoodsVO;
+import com.example.demo.vo.MemberVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -120,6 +121,14 @@ public class DBManager {
 		int re=0;
 		SqlSession session = factory.openSession();
 		re =session.selectOne("board.getTotalRecord");
+		session.close();
+		return re;
+	}
+	public static int join(MemberVO vo) {
+		int re=0;
+		SqlSession session = factory.openSession();
+		re = session.insert("member.join",vo);
+		session.commit();
 		session.close();
 		return re;
 	}
