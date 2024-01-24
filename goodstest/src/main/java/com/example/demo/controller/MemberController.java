@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dao.MemberDAO;
 import com.example.demo.vo.MemberVO;
 
+import kr.co.youiwe.webservice.BitSms;
+
 @Controller
 public class MemberController {
 
@@ -21,7 +23,10 @@ public class MemberController {
 	private MailSender mailSender;
 	@Autowired
 	private MemberDAO dao;
+	@Autowired
+	private BitSms sms;
 		
+	
 	
 	
 	public MemberController(MemberDAO dao) {
@@ -57,6 +62,31 @@ public class MemberController {
 		}
 		
 		return data;
+	}
+	@GetMapping("/sms")
+	@ResponseBody
+	public String sms(String phone) {
+		String to = phone;
+		String from = "01025598279";
+		
+		Random random = new Random();
+		
+		int a = random.nextInt(10);
+		int b = random.nextInt(10);
+		int c = random.nextInt(10);
+		int d = random.nextInt(10);
+		
+		String msg = a+""+b+""+c+""+d;
+		
+		sms.sendMsg(from, to, msg);
+				
+		
+		
+		return msg;
+	}
+	@GetMapping("/join2")
+	public void join2Form() {
+		
 	}
 
 	@GetMapping("/join")
