@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.example.demo.vo.BoardVO;
+import com.example.demo.vo.EmpVO;
 import com.example.demo.vo.GoodsVO;
 import com.example.demo.vo.MemberVO;
 
@@ -131,6 +132,15 @@ public class DBManager {
 		session.commit();
 		session.close();
 		return re;
+	}
+	
+	public static List<EmpVO> findEmpAll() {
+		List<EmpVO> list = null;
+		
+		SqlSession session = factory.openSession();
+		list = session.selectList("emp.findAll");
+		session.close();
+		return list;
 	}
 	
 

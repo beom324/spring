@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	#box_check,#f,#box_phone{
+	#box_check,#f,#box_phone,#box_email{
 		display:none;
 	}
 </style>
