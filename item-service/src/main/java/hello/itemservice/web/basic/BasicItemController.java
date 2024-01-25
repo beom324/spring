@@ -35,8 +35,8 @@ public class BasicItemController {
 
         return "basic/addForm";
     }
-    @PostMapping("/add")
-    public String save(@RequestParam String  itemName, @RequestParam int price, @RequestParam int quantity,Model model){
+//    @PostMapping("/add")
+    public String addItemV1(@RequestParam String  itemName, @RequestParam int price, @RequestParam int quantity,Model model){
         Item item = new Item();
         item.setItemName(itemName);
         item.setPrice(price);
@@ -46,6 +46,46 @@ public class BasicItemController {
 
         model.addAttribute("item",item);
         return "basic/item";
+    }
+    @PostMapping("/add")
+    public String addItemV4(Item item){
+
+        itemRepository.save(item);
+        //HelloData ->helloDate //클래스명의 첫글자를 소문자로 바꿔서 model.addAttribute에 넣어줌
+        //Item->item
+        //model.addAttribute("helloData",item)
+
+        return "basic/item";
+    }
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model){
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item",item);
+
+        return "basic/editForm";
+    }
+//    @PostMapping("/add")
+    public String addItemV3(@ModelAttribute Item item){
+
+        itemRepository.save(item);
+        //HelloData ->helloDate //클래스명의 첫글자를 소문자로 바꿔서 model.addAttribute에 넣어줌
+        //Item->item
+        //model.addAttribute("helloData",item)
+
+        return "basic/item";
+    }
+    //@PostMapping("/add")
+    public String addItemV2(@ModelAttribute("item") Item item){
+
+        itemRepository.save(item);
+
+        //model.addAttribute("item",item); //@ModelAttribute로 인해 자동 추가되어 생략 가능
+        return "basic/item";
+    }
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
     }
     /*
     테스트용 데이터 추가
