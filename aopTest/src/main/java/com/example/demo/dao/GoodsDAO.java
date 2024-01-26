@@ -12,6 +12,12 @@ public class GoodsDAO {
 
 
 	public List<GoodsVO> findAll(){
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return DBManager.findAll();
 		
 	}
@@ -21,7 +27,7 @@ public class GoodsDAO {
 	public int insertGoods(GoodsVO vo) {
 		return DBManager.insertGoods(vo);
 	}
-	public GoodsVO findById(int dno) {
+	public GoodsVO findById(int dno) {		
 		return DBManager.findById(dno);
 	}
 	public int updateGoods(GoodsVO vo) {
