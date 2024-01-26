@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.example.demo.vo.BookVO;
 import com.example.demo.vo.DeptVO;
 
 
@@ -25,6 +26,20 @@ public class DBManager {
 			System.out.println("DB Manager 오류 : " + e.getMessage());
 		}
 	}
+	
+	public static List<BookVO> findAllBook(){
+		List<BookVO> list = null;
+		SqlSession session = factory.openSession();
+		list = session.selectList("book.findAll");
+		session.close();
+		return list;
+		
+	}
+	
+	
+	
+	
+	//--------------------------------------------------------------------------------------------------
 	
 	public static List<DeptVO> findAll(){ //ArrayList의 부모인 List를 반환
 		List<DeptVO> list = null;
@@ -66,5 +81,5 @@ public class DBManager {
 		session.commit();
 		session.close();
 		return re;
-	}
+	}		
 }
