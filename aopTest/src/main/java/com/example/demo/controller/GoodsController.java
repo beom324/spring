@@ -30,25 +30,25 @@ public class GoodsController {
 
 
 	@GetMapping("/listGoods")
-	public String listGoods(Model model) {
+	public String listGoods(HttpServletRequest request,Model model) {
 		model.addAttribute("list",dao.findAll());
 		return "listGoods";
 	}
 	@GetMapping("/detailGoods")
-	public String detailGoods(Model model,int no) {
+	public String detailGoods(HttpServletRequest request,Model model,int no) {
 		model.addAttribute("list",dao.findById(no));
 		return "detailGoods";
 	}
 	@GetMapping("/updateGoods")
-	public String updateGoods(Model model, int no) {
+	public String updateGoods(HttpServletRequest request,Model model, int no) {
 		model.addAttribute("list",dao.findById(no));
 		return "updateGoods";
 	}
 	@PostMapping("updateGoods")
-	public String updateGoods(GoodsVO vo,HttpServletRequest req) {
+	public String updateGoods(HttpServletRequest request,GoodsVO vo) {
 		int re=0;
 		String oldFname = vo.getFname();//기존 사진이름
-		String path = req.getServletContext().getRealPath("images");//images의 실 경로를 알아옴
+		String path = request.getServletContext().getRealPath("images");//images의 실 경로를 알아옴
 		String fname=null;
 		MultipartFile uploadFile = vo.getUploadFile();
 		fname = uploadFile.getOriginalFilename();
@@ -73,12 +73,12 @@ public class GoodsController {
 		return "redirect:/listGoods";
 	}
 	@GetMapping("deleteGoods")
-	public String deleteGoods(int no,Model model,HttpServletRequest req) {
+	public String deleteGoods(HttpServletRequest request,int no,Model model) {
 		String view = "redirect:/listGoods";
 		String fname = dao.findById(no).getFname();
 		int re = dao.deleteGoods(no);
 		if(re==1) {
-			String path = req.getServletContext().getRealPath("images");			
+			String path = request.getServletContext().getRealPath("images");			
 			File file = new File(path+"/"+fname); 			
 			file.delete();
 		}else {

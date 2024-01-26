@@ -9,6 +9,8 @@ C:\SpringStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2562784926.
 \aopTest\src\main\java
 C:\SpringStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3172092914.index
 \goodstest\src\main\java
+C:\SpringStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3852243208.index
+\ajaxtestAOP\src\main\java
 C:\SpringStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1599623787.index
 \ajaxtest\src\main\java
 C:\SpringStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2242550146.index

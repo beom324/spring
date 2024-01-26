@@ -29,7 +29,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/listBoard")
-	public String listBoard(Model model,@RequestParam(value="pageNum",defaultValue ="1")int pageNum) {
+	public String listBoard(HttpServletRequest request,Model model,@RequestParam(value="pageNum",defaultValue ="1")int pageNum) {
 		
 		
 		
@@ -50,7 +50,7 @@ public class BoardController {
 		return "listBoard";
 	}
 	@GetMapping("/detailBoard")
-	public String detailBoard(Model model,int no) {
+	public String detailBoard(HttpServletRequest request,Model model,int no) {
 		model.addAttribute("list", dao.findById(no));
 
 
@@ -59,7 +59,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/insertBoard")
-	public String insertSubmit(BoardVO b, HttpServletRequest request ) {
+	public String insertSubmit(HttpServletRequest request,BoardVO b) {
 		String view = "redirect:/listBoard";
 		String path = 
 		request.getServletContext().getRealPath("upload");
@@ -120,7 +120,7 @@ public class BoardController {
 	}
 	
 	@GetMapping("/insertBoard")
-	public void insertForm(String no,Model model) {
+	public void insertForm(HttpServletRequest request, String no,Model model) {
 		int bno=0;
 		if(no!=null&&!no.equals("")) {
 			bno=Integer.parseInt(no);			

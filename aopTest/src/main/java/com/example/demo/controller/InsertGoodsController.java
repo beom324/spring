@@ -29,14 +29,14 @@ public class InsertGoodsController {
 		this.dao = dao;
 	}
 	@RequestMapping(method = RequestMethod.GET)
-	public void form(Model model) {
+	public void form(HttpServletRequest request,Model model) {
 		model.addAttribute("no",dao.nextNo());
 		
 	}
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView submit(GoodsVO vo, HttpServletRequest req) {
+	public ModelAndView submit(HttpServletRequest request,GoodsVO vo) {
 		ModelAndView mav = new ModelAndView("redirect:/listGoods");
-		String path = req.getServletContext().getRealPath("images");//파일의 실 경로를 알아옴
+		String path = request.getServletContext().getRealPath("images");//파일의 실 경로를 알아옴
 		String fname = null; //업로드한 파일 정보를 알아오기 위한 변수 선언
 		int re = -1;
 		MultipartFile uploadFile = vo.getUploadFile();
