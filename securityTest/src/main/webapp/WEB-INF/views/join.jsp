@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="/header.jsp" %>
+
 	<form action="join" method="post">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"> <!-- 모든 폼태그 사용시 필요 -->
 		아이디 : <input type="text" name="id"><br>

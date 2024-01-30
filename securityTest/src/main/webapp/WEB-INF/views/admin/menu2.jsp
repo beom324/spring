@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="/header.jsp" %>
+
 <h2>어드민 menu2입니다</h2>
 </body>
 </html>
