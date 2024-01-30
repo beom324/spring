@@ -21,5 +21,8 @@ public class GoodsService {
 	public List<GoodsVO> findAll(){		
 		return dao.findAll();
 	}
+	public void insertGoods(GoodsVO vo) {
+		dao.save(vo);
+	}
 			
 }
