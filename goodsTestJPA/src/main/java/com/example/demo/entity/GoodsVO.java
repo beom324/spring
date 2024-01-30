@@ -17,16 +17,5 @@ public class GoodsVO {
 	private int price;
 	private int qty;
 	private String fname;
-	public GoodsVO(int no, String name, int price, int qty, String fname) {
-		super();
-		this.no = no;
-		this.name = name;
-		this.price = price;
-		this.qty = qty;
-		this.fname = fname;
-	}
-	
-	
-
 	
 }

@@ -18,9 +18,8 @@ public class GoodsService {
 		this.dao = dao;
 	}
 	
-	public List<GoodsVO> findAll(){
+	public List<GoodsVO> findAll(){		
 		return dao.findAll();
 	}
-	
-	
+			
 }
