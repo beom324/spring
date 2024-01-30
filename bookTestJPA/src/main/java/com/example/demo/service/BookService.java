@@ -25,4 +25,9 @@ public class BookService {
 
 		return dao.findAll();
 	}
+	
+	public void save(BookVO vo){
+		dao.save(vo);
+	}
+	
 }

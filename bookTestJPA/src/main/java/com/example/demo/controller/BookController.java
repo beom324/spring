@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.service.BookService;
+import com.example.demo.vo.BookVO;
 
 @Controller
 public class BookController {
@@ -26,5 +28,11 @@ public class BookController {
 		model.addAttribute("list",bs.listBook());
 		
 		return "listBook";
+	}
+	@PostMapping("/save")
+	public String save(BookVO vo) {
+		
+		bs.save(vo);
+		return "redirect:/listBook";
 	}
 }
