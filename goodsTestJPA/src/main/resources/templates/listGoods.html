@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>수량</th>
+			<th>사진</th>
+		</tr>
+		<tr th:each="list:${list}">
+			<td th:text="${list.no}"></td>
+			<td th:text="${list.name}"></td>
+			<td th:text="${list.qty}"></td>
+			<td th:text="${list.fname}"></td>
+		</tr>
+	</table>
+</body>
+</html>
