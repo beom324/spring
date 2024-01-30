@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@include file="/header.jsp" %>
 <H2>도서목록</H2>
 
 <br><br><br>
