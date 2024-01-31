@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http:/thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" th:action th:object="${list}">
+<input type="hidden" th:field="*{bookid}">
+도서명 : <input type="text" th:field="*{bookname}">
+가격 : <input type="number" th:field="*{price}">
+출판사 : <input type="text" th:field="*{publisher}">
+<input type="submit" value="수정">
+<input type="reset" value="다시작성">
+</form>
+</body>
+</html>

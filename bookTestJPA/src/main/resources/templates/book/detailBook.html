@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(function(){
+		$("#deleteBtn").click(function(){
+			var re = confirm("정말로 삭제하시겠습니까?");
+			if(re==true){
+				var bookid=$("#bookid").val();
+				location.href="deleteBook?bookid="+bookid
+				
+			}
+		})
+	})
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>도서상세</h2>
+	<input type="hidden" th:value="${list.bookid}" id="bookid">
+	도서번호 : <span th:text="${list.bookid}"></span><br>
+	도서이름: <span th:text="${list.bookname}"></span><br>
+	가격 : <span th:text="${list.price}"></span><br>
+	출판사 : <span th:text="${list.publisher}"></span><br>
+	
+	<a th:href="@{/book/listBook}" th:text="도서목록"></a>
+	<a th:href="@{/book/updateBook(bookid=${list.bookid})}" th:text="수정하기"></a>
+	<!-- <a id="deleteBtn" th:href="@{/deleteBook(bookid=${list.bookid})}" th:text="삭제하기" ></a>-->
+	<a id="deleteBtn" href="#">삭제</a>
+</body>
+</html>

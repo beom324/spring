@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" th:action th:object="${list}">
+고객번호 : <input type="hidden" th:field="*{custid}">
+고객명 : <input type="text" th:field="*{name}">
+주소 : <input type="text" th:field="*{addr}">
+전화번호 : <input type="text" th:field="*{phone}">
+<input type="submit" value="등록">
+</form>
+</body>
+</html>
+

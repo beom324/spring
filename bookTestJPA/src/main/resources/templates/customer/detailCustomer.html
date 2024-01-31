@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+	$("#deleteBtn").click(function(){
+		var re = confirm("정말로 삭제하시겠습니까?");
+		var custid = $("#custid").val();
+		if(re==1){
+			location.href="deleteCustomer?custid="+custid
+		}
+	})
+})
+
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="hidden" th:value="${list.custid}" id="custid">
+
+고객번호<span th:text="${list.custid}"></span>
+고객명<span th:text="${list.name}"></span>
+주소<span th:text="${list.addr}"></span>
+전화번호<span th:text="${list.phone}"></span>
+
+<a th:href="@{/customer/updateCustomer(custid=${list.custid})}" th:text="수정하기"></a>
+<a id="deleteBtn" href="#">삭제</a>
+</body>
+</html>
