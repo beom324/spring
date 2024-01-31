@@ -45,5 +45,8 @@ public class CustomerService {
 	public void delete(int custid) {
 		dao.deleteById(custid);
 	}
+	public int getNextNo() {
+		return dao.getNextNo();
+	}
 	
 }

@@ -2,8 +2,18 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
 
+<script>
+	$(function(){
+		$(".checkDelete").click(function(e){
+			var re = confirm("정말로 삭제하시겠습니까?");
+			if(re==false){
+				e.preventDefault();
+				
+			}
+		
+		})		
+	})
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -15,6 +25,7 @@
 			<th>고객명</th>
 			<th>주소</th>
 			<th>전화번호</th>
+			<th>수정/삭제</th>
 		</tr>
 		<tr th:each="list:${list}">
 		<input type="hidden" th:value="${list.custid}" id="custid">
@@ -26,8 +37,13 @@
 			<td th:text="${list.name}"></td>
 			<td th:text="${list.addr}"></td>
 			<td th:text="${list.phone}"></td>
+			<td>
+				<a class="checkDelete" th:href="@{/customer/deleteCustomer(custid=${list.custid})}">삭제</a>
+				<a th:href="@{/customer/updateCustomer(custid=${list.custid})}">수정</a>
+
+			</td><br>
 		</tr>
-		<a th:href="@{/customer/insertCustomer.html}" th:text="고객등록">고객등록</a>
+		<a th:href="@{/customer/insertCustomer}" th:text="고객등록">고객등록</a>
 	</table>
 
 </body>

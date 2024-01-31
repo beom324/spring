@@ -6,10 +6,10 @@
 </head>
 <body>
 <form method="post" th:action th:object="${list}">
-고객번호 : <input type="hidden" th:field="*{custid}">
-고객명 : <input type="text" th:field="*{name}">
-주소 : <input type="text" th:field="*{addr}">
-전화번호 : <input type="text" th:field="*{phone}">
+<input type="hidden" th:field="*{custid}">
+고객명 : <input type="text" th:field="*{name}"><br>
+주소 : <input type="text" th:field="*{addr}"><br>
+전화번호 : <input type="text" th:field="*{phone}"><br>
 <input type="submit" value="등록">
 </form>
 </body>

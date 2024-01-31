@@ -29,7 +29,12 @@ public class CustomerController {
 		model.addAttribute("list",cs.findAll());
 		return "customer/listCustomer";
 	}
-
+	@GetMapping("/insertCustomer")
+	public String insertCustomer(Model model) {
+		model.addAttribute("no",cs.getNextNo());
+		return "customer/insertCustomer";
+	}
+	
 	@PostMapping("/insertCustomer")
 	public String insertCustomer(CustomerVO vo) {
 		cs.save(vo);
