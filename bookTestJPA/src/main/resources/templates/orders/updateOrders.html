@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" th:action>
+<input type="hidden" th:value="${list.orderid}" name="orderid">
+고객이름 : <input type="text" th:value="${list.customer.custid}" th:name=${list.customer.name}>
+상품명 : <input type="text" th:value="${list.book.bookname}" th:name=${list.book.bookname}>
+판매가격 : <input type="text" th:value="${list.saleprice}" th:name=${list.saleprice}>
+<input type="submit" value="주문제출">  
+</form>
+</body>
+</html>

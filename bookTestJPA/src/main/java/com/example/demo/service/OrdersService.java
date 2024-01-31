@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,19 @@ public class OrdersService {
 		dao.insert(vo);
 	}
 	
-	public List<OrdersVO> findAll(){
-		return dao.findAll();
+	public List<OrdersVO> findAllByOrderid(){
+		return dao.findAllByOrderByOrderidAsc();
 	}
+	public OrdersVO findById(int orderid) {
+		OrdersVO vo = null;
+		Optional<OrdersVO> o = dao.findById(orderid);
+		if(o.isPresent()) {
+			vo=o.get();
+		}
+		return vo;
+	}
+	public void delete(int orderid) {
+		dao.deleteById(orderid);
+	}
+	
 }

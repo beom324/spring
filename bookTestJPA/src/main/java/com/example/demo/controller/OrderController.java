@@ -44,9 +44,31 @@ public class OrderController {
 	}
 	@GetMapping("/listOrders")
 	public String list(Model model) {
-		model.addAttribute("list",os.findAll());
+		model.addAttribute("list",os.findAllByOrderid());
 		return "/orders/listOrders";
 				
+	}
+	@GetMapping("/detailOrders")
+	public String detail(Model model,int orderid) {
+		model.addAttribute("list",os.findById(orderid));
+		return "/orders/detailOrders";
+				
+	}
+	@GetMapping("/updateOrders")
+	public String updateOrders(int orderid, Model model) {
+		model.addAttribute("list", os.findById(orderid));		
+		return "orders/updateOrders";
+	}
+	@PostMapping("/updateOrders")
+	public String updateOrders(OrdersVO vo) {
+		os.insertOrders(vo);
+		return "redirect:/orders/listOrders";
+				
+	}
+	@GetMapping("/deleteOrders")
+	public String deleteOrders(int orderid) {
+		os.delete(orderid);
+		return "redirect:/orders/listOrders";
 	}
 	
 }
