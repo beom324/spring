@@ -37,7 +37,7 @@ public class BookService {
 
 	public List<BookVO> listBook(){
 
-		return dao.findAll();
+		return dao.findAllByOrderByBookname();
 	}
 	
 	public void save(BookVO vo){
@@ -59,6 +59,18 @@ public class BookService {
 	public void delete(int bookid) {
 		
 		dao.deleteById(bookid);
+	}
+	public List<BookVO> findByBookname(String bookname){
+		return dao.findAllByBooknameLike(bookname);
+	}
+	public List<BookVO> findByBookid(int bookid){
+		return dao.findAllByBookid(bookid);
+	}
+	public List<BookVO> findByPublisher(String publisher){
+		return dao.findAllByPublisherContaining(publisher);
+	}
+	public List<BookVO> findByprice(int price){
+		return dao.findAllByPrice(price);
 	}
 	
 	

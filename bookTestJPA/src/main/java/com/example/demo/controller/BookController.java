@@ -26,8 +26,22 @@ public class BookController {
 
 
 	@GetMapping("/listBook")
-	public String listBook(Model model) {
+	public String listBook(String keyword,Model model,String option) {
 		model.addAttribute("list",bs.listBook());
+
+		if(keyword!=null && !keyword.equals("")) {
+			if(option.equals("bookid")) {
+				model.addAttribute("list",bs.findByBookid(Integer.parseInt(keyword)));
+			}else if(option.equals("publisher")) {
+				model.addAttribute("list",bs.findByPublisher(keyword));
+			}else if(option.equals("price")) {
+				model.addAttribute("list",bs.findByprice(Integer.parseInt(keyword)));
+			}else if(option.equals("bookname")) {				
+				model.addAttribute("list",bs.findByBookname("%"+keyword+"%"));
+			}
+		}
+
+		
 		
 		return "book/listBook";
 	}
