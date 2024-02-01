@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1><a href="/book/list">도서목록</a></h1>
+<hr>
+<form method="get" action="list" >
+	<select name="cname">
+		<option value="Bookid">도서번호</option>
+		<option value="Bookname">도서명</option>
+		<option value="Publisher">출판사</option>
+		<option value="Price">가격</option>
+	</select>
+	<input type="text" name="keyword" size="15">
+	<input type="submit" value="검색">
+</form>
+	<table border="1">
+		<tr>
+			<th><a href="list?sname=Bookid">도서번호</a></th>
+			<th><a href="list?sname=Bookname">도서명</a></th>
+			<th><a href="list?sname=Price">가격</a></th>
+			<th><a href="list?sname=Publisher">출판사</a></th>
+
+		</tr>
+		<tr th:each="list:${list}">
+			<td th:text="${list.bookid}">도서번호</td>
+			<td>
+				<a th:href="@{/book/detail(bookid=${list.bookid})}">
+					<span th:text="${list.bookname}">책이름</span>
+				</a>
+			</td>
+			<td th:text="${list.price}">가격</td>
+			<td th:text="${list.publisher}">출판사</td>
+		</tr>
+
+
+	</table>
+	<a th:href="@{/book/insertBook.html}" th:text="도서등록"></a>
+</body>
+</html>

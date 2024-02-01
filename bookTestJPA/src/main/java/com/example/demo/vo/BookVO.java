@@ -11,9 +11,9 @@ import lombok.Data;
 public class BookVO {
 
 	@Id
-	private int bookid;
+	private Integer bookid;
 	private String bookname;
-	private int price;
+	private Integer price;
 	private String publisher;
 	
 }

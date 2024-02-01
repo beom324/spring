@@ -31,7 +31,7 @@ public class OrderController {
 	@GetMapping("/insertOrders")
 	public String insert(Model model) {
 		
-		model.addAttribute("bList",bs.listBook());
+		model.addAttribute("bList",bs.findAll(null));
 		model.addAttribute("cList",cs.findAll());
 		model.addAttribute("no",os.getNextNo());
 		
