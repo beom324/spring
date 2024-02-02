@@ -27,8 +27,12 @@ public class OrdersService {
 		dao.insert(vo);
 	}
 	
-	public List<OrdersVO> findAllByOrderid(){
-		return dao.findAllByOrderByOrderidAsc();
+	public List<OrdersVO> findAllByOrderid(String search){
+		if (search == null) {
+			return dao.findAllByOrderByOrderidAsc();
+		}else {
+			return dao.findByCustomer_Name(search);
+		}
 	}
 	public OrdersVO findById(int orderid) {
 		OrdersVO vo = null;

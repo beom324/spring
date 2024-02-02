@@ -43,8 +43,10 @@ public class OrderController {
 		return "/orders/listOrders";
 	}
 	@GetMapping("/listOrders")
-	public String list(Model model) {
-		model.addAttribute("list",os.findAllByOrderid());
+	public String list(Model model,String search) {
+
+		System.out.println("search :  " + search);
+		model.addAttribute("list",os.findAllByOrderid(search));		
 		return "/orders/listOrders";
 				
 	}

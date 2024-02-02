@@ -39,6 +39,9 @@ public class BookService {
 		String sname = map.get("sname");
 		System.out.println("서비스에서 sname:"+sname);
 		List<BookVO> list = null;
+		
+		
+		
 		if(keyword != null && !keyword.equals("")) {
 			String methodName = "findBy"+cname;
 			if(sname != null) {
@@ -69,6 +72,9 @@ public class BookService {
 			System.out.println("keyword:"+keyword);
 			System.out.println("methodName:"+methodName);
 		}
+		
+		
+		
 		else {
 			String methodName = "findAllByOrderBy";
 			if(sname != null) {

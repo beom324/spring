@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+	$("#deleteBtn").click(function(e){
+		var re = confirm("정말 삭제하시겠습니까?");
+		
+		if(re == false){
+			e.preventDefault();
+		}
+	})
+})
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>주문목록</h1>
+<hr>
+<table border="1">
+	<tr>
+		<td>주문번호</td>
+		<td>고객명</td>
+		<td>상품명</td>
+		<td>판매가격</td>
+		<td>주문일자</td>
+		<td>수정/삭제</td>
+	</tr>
+	<tr th:each="list:${list}">
+	<input type="hidden" th:value="${list.orderid}" th:id="orderid">
+		<td th:text="${list.orderid}"></td>
+		<td th:text="${list.customer.name}"></td>
+		<td><a th:href="@{/orders/detailOrders(orderid=${list.orderid})}"><span  th:text="${list.book.bookname}"></span></a></td>
+		<td th:text="${list.saleprice}"></td>
+		<td th:text="${list.orderdate}"></td>
+		<td>
+			<a th:text="수정" th:href="@{/orders/updateOrders(orderid=${list.orderid})}"></a>
+			<a th:text="삭제" th:id="deleteBtn" th:href="@{/orders/deleteOrders(orderid=${list.orderid})}"></a>
+		</td>
+	</tr>
+</table>
+<a th:href="@{/orders/insertOrders}">주문등록</a>
+</body>
+</html>

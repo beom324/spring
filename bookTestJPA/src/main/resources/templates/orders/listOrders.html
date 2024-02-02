@@ -19,11 +19,17 @@ $(function(){
 <body>
 <h1>주문목록</h1>
 <hr>
-<table border="1">
+	<form method="get" action="/orders/listOrders">
+		<input type="text" name="search"> 
+		<input type="submit" value="검색">
+	</form>
+	<table border="1">
 	<tr>
 		<td>주문번호</td>
+		<td>고객번호</td>
 		<td>고객명</td>
-		<td>상품명</td>
+		<td>도서명</td>
+		<td>도서번호</td>
 		<td>판매가격</td>
 		<td>주문일자</td>
 		<td>수정/삭제</td>
@@ -31,7 +37,9 @@ $(function(){
 	<tr th:each="list:${list}">
 	<input type="hidden" th:value="${list.orderid}" th:id="orderid">
 		<td th:text="${list.orderid}"></td>
+		<td th:text="${list.customer.custid}"></td>		
 		<td th:text="${list.customer.name}"></td>
+		<td th:text="${list.book.bookid}"></td>
 		<td><a th:href="@{/orders/detailOrders(orderid=${list.orderid})}"><span  th:text="${list.book.bookname}"></span></a></td>
 		<td th:text="${list.saleprice}"></td>
 		<td th:text="${list.orderdate}"></td>
@@ -44,3 +52,4 @@ $(function(){
 <a th:href="@{/orders/insertOrders}">주문등록</a>
 </body>
 </html>
+

@@ -21,6 +21,9 @@ public interface OrdersDAO extends JpaRepository<OrdersVO, Integer> {
 	@Query(value = "insert into orders o(o.orderid,o.custid,o.bookid,o.saleprice,o.orderdate) values(:#{#o.orderid},:#{#o.customer.custid}, :#{#o.book.bookid}, :#{#o.saleprice},sysdate)", nativeQuery = true)
 	public void insert(@Param("o") OrdersVO o);
 	
+	
+	
 	public List<OrdersVO> findAllByOrderByOrderidAsc();
+	public List<OrdersVO> findByCustomer_Name(String search);
 
 }

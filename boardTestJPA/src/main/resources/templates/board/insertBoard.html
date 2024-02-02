@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http:thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>게시물 등록</h1>
+	<hr>
+	<form th:action th:method="post" th:object="${board}" enctype="multipart/form-data">
+		<table border="1">
+
+			<tr>
+				<th>글제목</th>
+				<th><input type="text" th:field="*{title}"></th>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<th><input type="text" th:field="*{writer}"></th>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<th><input type="password" th:field="*{pwd}"></th>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<th><textarea th:field="*{content}" cols="15" rows="15"></textarea></th>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<th><input type="text" th:field="*{fname}"></th>
+			</tr>
+
+
+
+		</table>
+		<input type="submit" value="작성">
+	</form>
+
+</body>
+</html>
