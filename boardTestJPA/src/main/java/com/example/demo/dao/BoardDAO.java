@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +23,16 @@ public interface BoardDAO extends JpaRepository<Board,Integer> {
 	@Transactional
 	@Query(value ="update board set hit = hit+1 where no=?1",nativeQuery = true)
 	public void incHit(int no);
+
+	@Modifying
+	@Transactional
+	@Query(value="update Board b set b.b_step = b.b_step+1 where b.b_ref=?1 and b.b_step> ?2", nativeQuery = true)
+	public void updateStep(int b_ref,int b_step);
+	
+	@Query(value ="select * from board order by b_ref desc, b_step" , nativeQuery = true)
+	public List<Board> findAllby();
+	
+	
+	
+	
 }

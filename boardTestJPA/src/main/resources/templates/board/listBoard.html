@@ -16,7 +16,13 @@
 	</tr>
 	<tr th:each="list:${list}">
 		<td th:text=${list.no}>글번호</td>
-		<td ><a th:text=${list.title} th:href="@{/board/detailBoard(no=${list.no})}">글제목</a></td>
+		<td>
+			<span th:if="${list.b_level>0}"><!-- 답글이냐? -->
+				<span th:each="i:${#numbers.sequence(1,list.b_level)}">&nbsp;&nbsp;&nbsp;</span><!-- 1부터 b_level까지 -->
+				-->
+			</span>
+			<a th:text=${list.title} th:href="@{/board/detailBoard(no=${list.no})}">글제목</a>
+		</td>
 		<td th:text=${list.writer}>작성자</td>
 		<td th:text=${list.regdate}>등록일</td>
 		<td th:text=${list.hit}>조회수</td>

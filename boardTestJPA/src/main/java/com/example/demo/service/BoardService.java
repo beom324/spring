@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class BoardService {
 	private BoardDAO dao;
 
 	public List<Board> listBoard(){
-		return dao.findAll();
+		return dao.findAllby();
 	}
 	public BoardService(BoardDAO dao) {
 		super();
@@ -41,5 +42,12 @@ public class BoardService {
 	public void incHit(int no) {
 		dao.incHit(no);
 	}
+	public Board getOne(int no) {
+		return dao.getOne(no);
+	}
+
+	public void updateStep(int b_ref, int b_step) {
+		dao.updateStep(b_ref, b_step);
+	};
 	
 }

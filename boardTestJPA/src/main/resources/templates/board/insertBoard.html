@@ -8,6 +8,7 @@
 	<h1>게시물 등록</h1>
 	<hr>
 	<form th:action th:method="post" th:object="${board}" enctype="multipart/form-data">
+	<input type="hidden" th:value="${no}">
 		<table border="1">
 
 			<tr>
@@ -28,7 +29,7 @@
 			</tr>
 			<tr>
 				<th>첨부파일</th>
-				<th><input type="text" th:field="*{fname}"></th>
+				<th><input type="file" name="uploadFile"></th>
 			</tr>
 
 

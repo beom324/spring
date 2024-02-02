@@ -22,7 +22,7 @@ public class Board {
 	private int hit;
 	
 	@Transient//파일업로드를 위한 속성이므로 테이블에서 제외
-	private MultipartFile uploadFille;
+	private MultipartFile uploadFile;
 	private String fname;
 	private int b_ref;
 	private int b_level;

@@ -1,16 +1,23 @@
 package com.example.demo.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.BoardDAO;
 import com.example.demo.entity.Board;
 import com.example.demo.service.BoardService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -35,25 +42,61 @@ public class BoardController {
 		return "/board/listBoard";
 	}
 	@GetMapping("/insertBoard")
-	public String insertBoardForm(Board board,Model model) {
-		
+	public String insertBoardForm(@RequestParam(value="no", defaultValue = "0")int no, Board board,Model model) {
+												//새글 작성시에는 no가 null이기때문에 int에 null값을 담기위해 RequestParam사용
+		model.addAttribute("no",no);
 		model.addAttribute("board",board);
 		return "/board/insertBoard";
 	}
 	@PostMapping("/insertBoard")
-	public String insertBoard(Board board) {
+	public String insertBoard(Board board,HttpServletRequest request) {
 		
-		int no = bs.getNextNo();
+		int pno = board.getNo();
+		
+		int no = bs.getNextNo();	
 		int b_ref=no;
 		int b_level=0;
 		int b_step=0;
+		
+		if(pno!=0) {
+			Board b = bs.getOne(pno); //부모글에 대한 정보를 가져온다
+			b_ref = b.getB_ref();
+			b_level = b.getB_level();
+			b_step=b.getB_step();
+			
+			bs.updateStep(b_ref, b_step);
+			b_level++;
+			b_step++;
+		}
+
 		board.setNo(no);
 		board.setB_level(b_level);
 		board.setB_ref(b_ref);
 		board.setB_step(b_step);
 		
-		bs.insertBoard(board);
 		
+		MultipartFile uploadFile = board.getUploadFile();//이걸로는 null값을 판단할 수 없다.
+		String path = request.getServletContext().getRealPath("images"); 
+		String fileName = uploadFile.getOriginalFilename();
+		System.out.println("uploadFile : "+uploadFile);
+		System.out.println("path : " + path);
+		
+		if(uploadFile!=null&&!uploadFile.equals("")) {
+			
+			board.setFname(fileName);
+			try {
+				byte[] fileData = uploadFile.getBytes();
+				FileOutputStream fos = new FileOutputStream(path +"/"+fileName);
+				fos.write(fileData);
+				fos.close();
+				board.setFname(fileName);
+			} catch (IOException e) {
+				System.out.println("사진등록오류 : "+ e.getMessage());
+			}
+			
+		}
+		
+		bs.insertBoard(board);		
 		
 		return "redirect:/board/listBoard";
 	}
