@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +20,10 @@ public class MemberService implements UserDetailsService {
 	public MemberService(MemberDAO dao) {
 		super();
 		this.dao = dao;
+	}
+	
+	public List<Member> findAll(){
+		return dao.findAll();
 	}
 
 	@Override
