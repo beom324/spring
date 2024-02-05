@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+
+$(function(){
+	$(".deleteBtn").click(function(e){
+		var re = confirm("정말로 삭제하시겠습니까?")
+		if(re!=true){
+			e.preventDefault();
+		}
+	})
+})
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -18,7 +30,7 @@
 		<td th:text="${list.id}"></td>
 		<td th:text="${list.name}"></td>		
 		<td th:text="${list.role}"></td>
-		<td><a>삭제</a></td>
+		<td><a th:href="@{|/admin/delete/${list.id}|}" class="deleteBtn">삭제</a></td>
 	</tr>
 </table>
 

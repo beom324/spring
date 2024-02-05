@@ -25,6 +25,10 @@ public class MemberService implements UserDetailsService {
 	public List<Member> findAll(){
 		return dao.findAll();
 	}
+	
+	public void delete(String id) {
+		dao.deleteById(id);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
