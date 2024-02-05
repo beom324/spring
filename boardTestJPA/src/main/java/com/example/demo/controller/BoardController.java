@@ -3,11 +3,16 @@ package com.example.demo.controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +41,10 @@ public class BoardController {
 		this.dao = dao;
 	}
 	@GetMapping("/listBoard")
-	public String listBoard(Model model) {
-		model.addAttribute("list",bs.listBoard());
+	public String listBoard(Model model,@PageableDefault Pageable pageable) {
+		Page<Board> boardList = bs.getBoardList(pageable);
+
+		model.addAttribute("list",boardList);
 		
 		return "/board/listBoard";
 	}
@@ -100,8 +107,8 @@ public class BoardController {
 		
 		return "redirect:/board/listBoard";
 	}
-	@GetMapping("/detailBoard")
-	public String detailBoard(Model model,int no) {
+	@GetMapping("/detailBoard/{no}")
+	public String detailBoard(Model model,@PathVariable int no) {
 		
 		bs.incHit(no);
 		model.addAttribute("list",bs.findById(no));

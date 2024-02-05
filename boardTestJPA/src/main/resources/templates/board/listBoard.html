@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<style>
+	
+</style>
+<body style="margin-left:auto; margin-right:auto;">
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
 
-<table border="1">
+<table border="1" style="margin-left:auto; margin-right:auto; text-align:center;">
 	<tr>
 		<td>글번호</td>
 		<td>글제목</td>
@@ -21,14 +25,46 @@
 				<span th:each="i:${#numbers.sequence(1,list.b_level)}">&nbsp;&nbsp;&nbsp;</span><!-- 1부터 b_level까지 -->
 				-->
 			</span>
-			<a th:text=${list.title} th:href="@{/board/detailBoard(no=${list.no})}">글제목</a>
+			<a th:text=${list.title} th:href="@{|/board/detailBoard/${list.no}|}">글제목</a>
 		</td>
 		<td th:text=${list.writer}>작성자</td>
 		<td th:text=${list.regdate}>등록일</td>
 		<td th:text=${list.hit}>조회수</td>
 	</tr>
 </table>
+<nav style="text-align: center;">
+    <ul class="pagination"
+        th:with="start=${T(java.lang.Math).floor(list.number/10)*10 + 1},
+                    last=(${start + 9 < list.totalPages ? start + 9 : list.totalPages})">
+        <li>
+            <a th:href="@{/board/listBoard(page=1)}" aria-label="First">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
 
+        <li th:class="${list.first} ? 'disabled'">
+            <a th:href="${list.first} ? '#' :@{/board/listBoard(page=${list.number})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+
+        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == list.number + 1} ? 'active'">
+            <a th:text="${page}" th:href="@{/board/listBoard(page=${page})}"></a>
+        </li>
+
+        <li th:class="${list.last} ? 'disabled'">
+            <a th:href="${list.last} ? '#' : @{/board/listBoard(page=${list.number + 2})}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/board/listBoard(page=${list.totalPages})}" aria-label="Last">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+    </ul>
+    </nav>
 <a href="/board/insertBoard">게시물 등록</a>
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,7 +32,9 @@ public interface BoardDAO extends JpaRepository<Board,Integer> {
 	public void updateStep(int b_ref,int b_step);
 	
 	@Query(value ="select * from board order by b_ref desc, b_step" , nativeQuery = true)
-	public List<Board> findAllby();
+	public Page<Board> findAllby(Pageable pageble);
+	
+	
 	
 	
 	

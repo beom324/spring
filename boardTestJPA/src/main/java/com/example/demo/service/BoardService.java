@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.BoardDAO;
@@ -16,9 +20,12 @@ public class BoardService {
 	@Autowired
 	private BoardDAO dao;
 
-	public List<Board> listBoard(){
-		return dao.findAllby();
-	}
+	public Page<Board> getBoardList(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(page, 10);
+
+        return dao.findAll(pageable);
+    }
 	public BoardService(BoardDAO dao) {
 		super();
 		this.dao = dao;
