@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.BoardDAO;
 import com.example.demo.entity.Board;
+import com.example.demo.entity.Member;
 import com.example.demo.service.BoardService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -41,7 +45,8 @@ public class BoardController {
 		this.dao = dao;
 	}
 	@GetMapping("/listBoard")
-	public String listBoard(Model model,@PageableDefault Pageable pageable) {
+	public String listBoard(Model model,@PageableDefault Pageable pageable,HttpSession session) {
+
 		Page<Board> boardList = bs.getBoardList(pageable);
 
 		model.addAttribute("list",boardList);
