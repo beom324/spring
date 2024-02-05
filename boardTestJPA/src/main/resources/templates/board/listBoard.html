@@ -9,6 +9,13 @@
 </style>
 <body style="margin-left:auto; margin-right:auto;">
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+    
+    <h2>게시물목록</h2>
+    <span th:text="|${session.user.id}(${session.user.name}) 님이 로그인하셨습니다|"></span>
+    <div th:if="${session.user.role} == admin">
+	    <a th:href="@{/admin/index}" th:text="관리자메뉴"></a>
+    </div>
+    <hr>
 
 <table border="1" style="margin-left:auto; margin-right:auto; text-align:center;">
 	<tr>

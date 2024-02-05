@@ -29,6 +29,9 @@ public class MemberService implements UserDetailsService {
 	public void delete(String id) {
 		dao.deleteById(id);
 	}
+	public Member findById(String id) {
+		return dao.getOne(id);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

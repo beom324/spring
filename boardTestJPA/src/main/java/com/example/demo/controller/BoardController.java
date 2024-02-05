@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ import com.example.demo.dao.BoardDAO;
 import com.example.demo.entity.Board;
 import com.example.demo.entity.Member;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -38,6 +41,8 @@ public class BoardController {
 	private BoardDAO dao;
 	@Autowired
 	private BoardService bs;
+	@Autowired
+	private MemberService ms;
 	
 	
 	public BoardController(BoardDAO dao) {
@@ -46,13 +51,32 @@ public class BoardController {
 	}
 	@GetMapping("/listBoard")
 	public String listBoard(Model model,@PageableDefault Pageable pageable,HttpSession session) {
-
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		//이 인증객체를 통해서 인증된(로그인에 성공한) User객체를 받아 옵니다.
+		
+		User user = (User)authentication.getPrincipal();
+		
+		//이, 인증된 User를 통해서 로그인한 회원의 아이디를 갖고 옵니다.
+		
+		String id = user.getUsername();
+		
+		
+		//이 정보를 세션에 상태유지 합니다.
+		//만약 id뿐 아니라 로그인 한 회원의 다른 정보도 필요하다면 dao를 통해 회원의 정보를 갖고 와서 상태유지합니다
+		
+		
 		Page<Board> boardList = bs.getBoardList(pageable);
 
+		
+		
+		session.setAttribute("user", ms.findById(id));
 		model.addAttribute("list",boardList);
 		
 		return "/board/listBoard";
 	}
+	
+	
 	@GetMapping("/insertBoard")
 	public String insertBoardForm(@RequestParam(value="no", defaultValue = "0")int no, Board board,Model model) {
 												//새글 작성시에는 no가 null이기때문에 int에 null값을 담기위해 RequestParam사용
@@ -60,6 +84,7 @@ public class BoardController {
 		model.addAttribute("board",board);
 		return "/board/insertBoard";
 	}
+	
 	@PostMapping("/insertBoard")
 	public String insertBoard(Board board,HttpServletRequest request) {
 		
@@ -112,6 +137,7 @@ public class BoardController {
 		
 		return "redirect:/board/listBoard";
 	}
+	
 	@GetMapping("/detailBoard/{no}")
 	public String detailBoard(Model model,@PathVariable int no) {
 		
