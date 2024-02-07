@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,9 +70,9 @@ public class BoardController {
 		
 		Page<Board> boardList = bs.getBoardList(pageable);
 
+		Member m = ms.findById(id);
 		
-		
-		session.setAttribute("user", ms.findById(id));
+		session.setAttribute("user", m);
 		model.addAttribute("list",boardList);
 		
 		return "/board/listBoard";
@@ -81,6 +83,7 @@ public class BoardController {
 	public String insertBoardForm(@RequestParam(value="no", defaultValue = "0")int no, Board board,Model model) {
 												//새글 작성시에는 no가 null이기때문에 int에 null값을 담기위해 RequestParam사용
 		model.addAttribute("no",no);
+		model.addAttribute("list",bs.findById(no));
 		model.addAttribute("board",board);
 		return "/board/insertBoard";
 	}
@@ -145,4 +148,64 @@ public class BoardController {
 		model.addAttribute("list",bs.findById(no));
 		return "/board/detailBoard";
 	}
+	@GetMapping("/myList/{id}")
+	public String myList(@PageableDefault Pageable pageble,@PathVariable String id,Model model) {
+		
+		model.addAttribute("list",bs.findMyList(pageble, id));
+		
+		return "/board/myList";
+	}
+	
+	
+	@GetMapping("/updateBoard/{no}")
+	public String updateForm(Model model,@PathVariable int no,Board board) {
+		model.addAttribute("list",bs.findById(no));
+		return "/board/updateBoard";
+	}
+	@GetMapping("/deletePop/{no}")
+	public String deletePop(@PathVariable int no,Model model) {
+		model.addAttribute("no",no);
+		return"/popup/deletePop";
+	}
+	@PostMapping("updateBoard/{no}")
+	public String updateBoard(Board board,HttpServletRequest request,@PathVariable int no,Model model) {
+		
+		model.addAttribute("list",bs.findById(no));
+		String oldFile = board.getFname();
+		System.out.println("oldFile : " + oldFile);
+		MultipartFile uploadFile = board.getUploadFile();
+		
+		String path = request.getServletContext().getRealPath("images");
+		String fileName = uploadFile.getOriginalFilename();
+		if(uploadFile!=null && !uploadFile.equals("")) {
+			board.setFname(fileName);
+			try {
+				
+				
+				FileOutputStream fos = new FileOutputStream(path+"/"+fileName);
+				FileCopyUtils.copy(uploadFile.getBytes(), fos);
+				fos.close();
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		
+		
+		
+		int re =dao.updateBoard(board);
+		if(re==1 &&uploadFile!=null && !uploadFile.equals("")&&oldFile!=null&&oldFile.equals("") ) {
+			File file = new File(path+"/"+oldFile);
+			file.delete();
+		}
+		
+		return "redirect:/board/listBoard";
+				
+	}
+	@GetMapping("/deleteBoard")
+	public String delete(int no) {
+		dao.deleteById(no);
+		
+		return "redirect:/board/listBoard";
+	}
+	
 }

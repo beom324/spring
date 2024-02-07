@@ -30,6 +30,9 @@ public class BoardService {
 		super();
 		this.dao = dao;
 	}
+	public void save(Board board) {
+		dao.save(board);
+	}
 	
 	public int getNextNo() {
 		return dao.getNextNo();
@@ -56,5 +59,11 @@ public class BoardService {
 	public void updateStep(int b_ref, int b_step) {
 		dao.updateStep(b_ref, b_step);
 	};
+	public Page<Board> findMyList(Pageable pageable, String id){
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(page, 10);
+		return dao.findMyList(pageable,id);
+	}
 	
+
 }

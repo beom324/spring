@@ -16,7 +16,7 @@ public interface BoardDAO extends JpaRepository<Board,Integer> {
 
 	@Modifying
 	@Transactional
-	@Query(value="insert into board b(b.no,b.title,b.writer,b.pwd,b.content,b.regdate,b.hit,b.fname,b.b_ref,b.b_level,b.b_step) values(:#{#b.no},:#{#b.title},:#{#b.writer},:#{#b.pwd},:#{#b.content},sysdate,0,:#{#b.fname},:#{#b.b_ref},:#{#b.b_level},:#{#b.b_step})",nativeQuery = true)
+	@Query(value="insert into board b(b.no,b.title,b.id,b.pwd,b.content,b.regdate,b.hit,b.fname,b.b_ref,b.b_level,b.b_step) values(:#{#b.no},:#{#b.title},:#{#b.member.id},:#{#b.pwd},:#{#b.content},sysdate,0,:#{#b.fname},:#{#b.b_ref},:#{#b.b_level},:#{#b.b_step})",nativeQuery = true)
 	public void insert(Board b);
 	
 	@Query(value = "select nvl(max(no),0)+1 from board", nativeQuery = true)
@@ -33,10 +33,16 @@ public interface BoardDAO extends JpaRepository<Board,Integer> {
 	
 	@Query(value ="select * from board order by b_ref desc, b_step" , nativeQuery = true)
 	public Page<Board> findAllby(Pageable pageble);
+
+	@Modifying
+	@Transactional
+	@Query(value="update Board b set b.title=:#{#b.title},b.content=:#{#b.content}, b.fname=:#{#b.fname} "
+			+ "where b.no=:#{#b.no} and b.pwd=:#{#b.pwd}" ,nativeQuery = true)
+	public int updateBoard(Board b);
 	
 	
-	
-	
+	@Query(value="select * from board where id=?1",nativeQuery = true)
+	public Page<Board> findMyList(Pageable pageble,String id);
 	
 	
 }

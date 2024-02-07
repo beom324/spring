@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function(){
+	var pwd ;
+	var input = $("#pwdd").val();
+	$.ajax({
+		url:"/board/detailBoard/[[${no}]]",
+		success: function(data){
+			alert(data.pwd)
+		}
+	})
+	$("#deleteBtn").click(function(e){
+		if(input != pwd){
+			alert("비밀번호가 다릅니다")
+			e.preventDefault();
+		}
+	})
+	
+})
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+비밀번호 : <input type="password" id="pwdd">
+<button id="deleteBtn" >삭제하기</button>
+</body>
+</html>

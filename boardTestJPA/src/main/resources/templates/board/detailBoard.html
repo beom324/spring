@@ -3,8 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+$(function(){
+
+	var pwd =[[${list.pwd}]]
+	
+	$("#deleteBtn").click(function(e){
+		alert(pwd)
+		var check ={data : pwd};
+		e.preventDefault();
+			$.ajax({
+			url : "board/deletePop/[[${list.no}]]",
+			type:"post",
+			data: {
+				data:pwd
+			},
+			datatype:"json",
+			success : function(){
+			}
+			
+		})
+		
+		let popOption = "width = 650px, height = 550px, top=300px, left=300px"
+		let openUrl = '/board/deletePop/[[${list.no}]]'
+		window.open(openUrl,'삭제',popOption)
+		e.preventDefault()
+	})
+})
+</script>
 </head>
-<body>
+<body>	
 	<table border="1">
 		<tr>
 			<td>글번호</td>
@@ -12,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>작성자</td>
-			<td th:text="${list.writer}"></td>
+			<td th:text="${list.member.id}"></td>
 		</tr>
 		<tr>
 			<td>작성일자</td>
@@ -50,5 +79,7 @@
 	</table>
 	<a th:href="@{/board/listBoard}" th:text="목록으로"></a>
 	<a th:href="@{/board/insertBoard(no=${list.no})}" th:text="답글달기"></a>
+	<a th:href="@{|/board/updateBoard/${list.no}|}"th:text="수정하기"></a>
+	<a id="deleteBtn" href="#" th:text="삭제하기"></a>
 </body>
 </html>

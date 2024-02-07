@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http:thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>게시물 등록</h1>
+	<hr>
+	<form th:action th:method="post" th:object="${board}" enctype="multipart/form-data">
+	<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"> <!-- 모든 폼태그 사용시 필요 -->
+	<input type="hidden" th:field="*{no}">
+	<input type="hidden" th:field="*{fname}">
+	
+		<table border="1">
+
+			<tr>
+				<th>글제목</th>
+				<th><input type="text" th:field="*{title}"></th>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<th><textarea th:field="*{content}" cols="15" rows="15"></textarea></th>
+			</tr>
+			<tr>
+				<th>첨부파일</th>	
+				<th><input type="file" name="uploadFile"></th>
+			</tr>
+
+		</table>
+		<input type="submit" value="수정">
+	</form>
+
+</body>
+</html>

@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDAO;
@@ -30,12 +32,31 @@ public class MemberService implements UserDetailsService {
 		dao.deleteById(id);
 	}
 	public Member findById(String id) {
-		return dao.getOne(id);
+//		Optional<Member> op = dao.findById(id);
+//		Member member = null;
+//		if(op.isPresent()) {
+//			member =op.get();
+//		}
+//		return member;
+		return dao.findById(id).get();
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDetails user = null;
+//		Member kim = new Member();
+//		kim.setId("kim");
+//		kim.setName("kimname");
+//		kim.setPwd(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("kim"));
+//		kim.setRole("user");
+//		dao.save(kim);
+//		
+//		Member hong = new Member();
+//		hong.setId("hong");
+//		hong.setName("hongname");
+//		hong.setPwd(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("hong"));
+//		hong.setRole("admin");
+//		dao.save(hong);
 		try {
 			Optional<Member> op = dao.findById(username);
 			Member member = null;

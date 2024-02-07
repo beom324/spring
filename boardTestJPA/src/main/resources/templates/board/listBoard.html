@@ -15,6 +15,8 @@
     <div th:if="${session.user.role} == admin">
 	    <a th:href="@{/admin/index}" th:text="관리자메뉴"></a>
     </div>
+    <a th:href="@{|/board/myList/${session.user.id}|}">내글보기</a>
+    
     <hr>
 
 <table border="1" style="margin-left:auto; margin-right:auto; text-align:center;">
@@ -26,7 +28,7 @@
 		<td>조회수</td>
 	</tr>
 	<tr th:each="list:${list}">
-		<td th:text=${list.no}>글번호</td>
+	<td th:text=${list.no}></td>		
 		<td>
 			<span th:if="${list.b_level>0}"><!-- 답글이냐? -->
 				<span th:each="i:${#numbers.sequence(1,list.b_level)}">&nbsp;&nbsp;&nbsp;</span><!-- 1부터 b_level까지 -->
@@ -34,12 +36,14 @@
 			</span>
 			<a th:text=${list.title} th:href="@{|/board/detailBoard/${list.no}|}">글제목</a>
 		</td>
-		<td th:text=${list.writer}>작성자</td>
+		<td><a  th:text=${list.member.id} th:href="@{|/board/myList/${list.member.id}|}">작성자</a></td>
 		<td th:text=${list.regdate}>등록일</td>
 		<td th:text=${list.hit}>조회수</td>
 	</tr>
 </table>
+<div>
 <nav style="text-align: center;">
+
     <ul class="pagination"
         th:with="start=${T(java.lang.Math).floor(list.number/10)*10 + 1},
                     last=(${start + 9 < list.totalPages ? start + 9 : list.totalPages})">
@@ -72,6 +76,7 @@
         </li>
     </ul>
     </nav>
+    </div>
 <a href="/board/insertBoard">게시물 등록</a>
 </body>
 </html>

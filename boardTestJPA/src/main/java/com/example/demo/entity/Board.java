@@ -4,6 +4,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Data;
@@ -15,7 +18,13 @@ public class Board {
 	@Id
 	private int no;
 	private String title;
-	private String writer;
+
+	@ManyToOne
+	@JoinColumn(name = "id",insertable = true, updatable = true)
+	private Member member; //Member 의 mappedby변수명과 일치해야한다.
+	
+//	private String writer;
+	
 	private String pwd;
 	private String content;
 	private String regdate;

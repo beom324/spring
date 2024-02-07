@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http:thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<table border="1" style="margin-left:auto; margin-right:auto; text-align:center;">
+	<tr>
+		<th>전체글개수</th>
+		<th>글번호</th>
+		<th>글제목</th>
+		<th>작성자</th>
+		<th>등록일</th>
+		<th>조회수</th>
+	</tr>
+	<tr th:each="list:${list}">
+	<td><span th:text="${listStat.count}"></span></td>
+		<td th:text=${list.no}>글번호</td>
+		<td><a  th:text=${list.title}  th:href="@{|/board/detailBoard/${list.no}|}">글제목</a></td>
+		<td th:text=${list.member.id}>작성자</td>
+		<td th:text=${list.regdate}>등록일</td>
+		<td th:text=${list.hit}>조회수</td>
+	</tr>
+</table>
+<th:block th:if="${list.size} ne 0">
+
+<nav style="text-align: center;">
+    <ul class="pagination"
+        th:with="start=${T(java.lang.Math).floor(list.number/5)*5 + 1},
+                    last=(${start + 4 < list.totalPages ? start + 4 : list.totalPages})">
+        <li>
+            <a th:href="@{|/board/myList/${session.user.id}|(page=1)}" aria-label="First">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
+
+        <li th:class="${list.first} ? 'disabled'">
+            <a th:href="${list.first} ? '#' :@{|/board/myList/${session.user.id}|(page=${list.number})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+
+        <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == list.number + 1} ? 'active'">
+            <a th:text="${page}" th:href="@{|/board/myList/${session.user.id}|(page=${page})}"></a>
+        </li>
+
+        <li th:class="${list.last} ? 'disabled'">
+            <a th:href="${list.last} ? '#' : @{|/board/myList/${session.user.id}|(page=${list.number + 2})}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{|/board/myList/${session.user.id}|(page=${list.totalPages})}" aria-label="Last">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+    </ul>
+    </nav>
+    </th:block>
+    <a th:href="@{/board/listBoard}">목록으로</a>
+</body>
+</html>
