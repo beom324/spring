@@ -119,4 +119,7 @@
 		<item key="patterns" value="*"/>
 		<item key="renameSubpackages" value="false"/>
 	</section>
+	<section name="WorkingSetModelAwareSelectionDialog">
+		<item key="ShowVisibleOnly" value="true"/>
+	</section>
 </section>

@@ -15,14 +15,84 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.jsoup.select.Evaluator.IsRoot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dao.BookDAO;
+import com.example.demo.service.BookService;
+import com.example.demo.vo.BookVO;
 import com.example.demo.vo.NewBook;
 
 @RestController
 public class HanBController {
+
+	@Autowired
+	private BookDAO dao;
+
+	public HanBController(BookDAO dao) {
+		super();
+		this.dao = dao;
+	}
+
+	@GetMapping("/searchDown/{search}")
+	public String search(@PathVariable String search) {
+
+		 int i=1;
+	      while (true) {
+	         String url = "https://www.hanbit.co.kr/store/books/new_book_list.html?page=" + i + "&searchKey=all&keyWord="
+	               + search;
+	         i++;
+	         try {
+	            Document doc = Jsoup.connect(url).get();
+	            Elements title = doc.select(".sub_book_list");
+	            if(title.size()==0) {
+	               break;
+	            }
+	            for (Element e : title) {
+	               BookVO h = new BookVO();
+	               Element t = e.selectFirst(".book_tit").firstElementChild();
+	               Element w = e.selectFirst(".book_writer");
+
+	               String detailURL = "https://www.hanbit.co.kr" + t.attr("href");
+	               Document detail = Jsoup.connect(detailURL).get();
+	               Element d = detail.selectFirst(".info_list");
+	               
+	               String publicationdate = d.getElementsByTag("li").get(1).lastElementChild().text();
+	               
+	               if(d.getElementsByTag("li").get(1).firstElementChild().text().indexOf("번역")==0) {
+	                  publicationdate = d.getElementsByTag("li").get(2).lastElementChild().text();
+	               }
+	               
+	               int price = Integer.parseInt(detail.selectFirst(".pbr").text().replace("원", "").replace(",", ""));
+	               
+	               System.out.println(t.html());
+	               System.out.println(w.html());
+	               System.out.println(publicationdate);
+	               System.out.println(price);
+	               
+	               h.setBookname(t.html());
+	               h.setWriter(w.html());
+	               h.setPublicationdate(publicationdate);
+	               h.setPrice(price);
+	               
+	               dao.save(h);
+
+	               
+	            }
+	         } catch (Exception error) {
+	            System.out.println("search 예외발생 : " + error.getMessage());
+	         }
+	      }
+	      System.out.println("*****완료*****");
+	      return "ok";
+	      
+	   }
+
+
+	
 
 	@GetMapping("/downImg")
 	public String downImg() {
@@ -47,11 +117,10 @@ public class HanBController {
 					Element bookname = f.firstElementChild();
 					String title = bookname.text();
 					titleList.add(title);
-				}				
+				}
 				b++;
 			}
 			for (int i = 0; i < titleList.size(); i++) {
-				
 
 				imgDownload("https://www.hanbit.co.kr/" + addrList.get(i), titleList.get(i));
 

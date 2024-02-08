@@ -154,7 +154,7 @@ org.eclipse.pde.genericeditor.extension.editor.color.text=207,212,216
 org.eclipse.pde.internal.ui.compare.ManifestContentMergeViewer=1|Verdana|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Verdana;
 org.eclipse.pde.internal.ui.compare.PluginContentMergeViewer=1|Verdana|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Verdana;
 org.eclipse.search.ui.match.highlight=73,83,90
-org.eclipse.ui.commands=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<org.eclipse.ui.commands>\r\n<keyBinding commandId\="org.eclipse.ui.window.nextEditor" contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+TAB"/>\r\n<keyBinding contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+F6"/>\r\n</org.eclipse.ui.commands>
+org.eclipse.ui.commands=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<org.eclipse.ui.commands>\r\n<keyBinding contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+F6"/>\r\n<keyBinding commandId\="org.eclipse.ui.window.nextEditor" contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+TAB"/>\r\n</org.eclipse.ui.commands>
 org.eclipse.ui.editors.backgroundColor=0,0,0
 org.eclipse.ui.editors.currentLineColor=7,8,8
 org.eclipse.ui.editors.findScope=62,70,76
