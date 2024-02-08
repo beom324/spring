@@ -9,5 +9,4 @@ public class JsoupTestApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JsoupTestApplication.class, args);
 	}
-
 }
