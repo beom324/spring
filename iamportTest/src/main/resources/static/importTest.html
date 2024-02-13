@@ -25,11 +25,6 @@
 
 			function(res) {
 				if(res.success){
-					console.log("결제완료");
-					console.log("결제번호 : " + res.imp_uid);
-					console.log("카드번호 : " + res.card_number);
-					console.log("주문번호 : "+ res.merchant_uid);
-					console.log("결제금액 : "+ res.paid_amount);
 					$("#imp_uid").val(res.imp_uid)
 					$("#card_number").val(res.card_number)
 					$("#merchant_uid").val(res.merchant_uid)
@@ -54,7 +49,6 @@
 <input type="hidden" name="paid_amount" id="paid_amount">
 
 </form>
-
 	<button id="btn_pay">결제</button>
 </body>
 </html>
