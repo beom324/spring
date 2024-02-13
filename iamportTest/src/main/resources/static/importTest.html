@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		var IMP = window.IMP;
+		IMP.init("imp45040256");
+		//IMP.request_pay(param, callback함수) 함수는 결제창을 호출하는 함수
+		$("#btn_pay").click(function() {
+			IMP.request_pay({
+				pg : 'kcp',
+				pay_method : 'card',
+				merchant_uid : 'b1234_' + new Date().getTime(),
+				name : '축구공',
+				amount : 100,
+				buyer_email : 'email@gmail.com',
+				buyer_name : '홍길동',
+				buyer_tel : '010-1234-5678',
+				buyer_addr : '서울특별시 강남구 삼성동',
+				buyer_postcode : '123-456',
+			},
+
+			function(res) {
+				if(res.success){
+					console.log("결제완료");
+					console.log("결제번호 : " + res.imp_uid);
+					console.log("카드번호 : " + res.card_number);
+					console.log("주문번호 : "+ res.merchant_uid);
+					console.log("결제금액 : "+ res.paid_amount);
+					$("#imp_uid").val(res.imp_uid)
+					$("#card_number").val(res.card_number)
+					$("#merchant_uid").val(res.merchant_uid)
+					$("#paid_amount").val(res.paid_amount)
+					$("#pay").submit(); 
+				}else{
+					console.log("결제실패")
+					console.log(res.error_msg)
+				}
+			});
+		})
+	})
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/payok" method="post" id="pay">
+<input type="hidden" name="imp_uid" id="imp_uid">
+<input type="hidden" name="card_number" id="card_number">
+<input type="hidden" name="merchant_uid" id="merchant_uid">
+<input type="hidden" name="paid_amount" id="paid_amount">
+
+</form>
+
+	<button id="btn_pay">결제</button>
+</body>
+</html>
