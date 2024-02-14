@@ -1,4 +1,4 @@
-package com.example.demo;
+package   com.example.demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +16,14 @@ public class SecurityConfig {
 	@Bean
 	public PasswordEncoder encoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+	}   
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http.authorizeHttpRequests()
-		.requestMatchers("/", "/member/login", "/member/join","/order/**").permitAll()
+		.requestMatchers("/", "/member/login", "/member/join").permitAll()
 		.requestMatchers("/admin/**","goods/insertGoods").hasRole("admin")
-		.anyRequest().authenticated();
+		.anyRequest().authenticated();   
 		
 		http.formLogin().loginPage("/member/login").permitAll()
 		.defaultSuccessUrl("/goods/listGoods"); 

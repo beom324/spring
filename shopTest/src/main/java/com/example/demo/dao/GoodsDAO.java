@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.Goods;
 
+import jakarta.persistence.EntityManagerFactory;
+
 @Repository
 public interface GoodsDAO extends JpaRepository<Goods, Long> {
 
+	      
 }

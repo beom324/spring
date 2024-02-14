@@ -32,17 +32,3 @@ public class Member {
 	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -7,13 +7,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
 @Data
+@SequenceGenerator(name = "goods_seq_generator",allocationSize = 1,initialValue = 1,sequenceName = "goods_seq") 
+
 public class Goods {
-	@Id@GeneratedValue(strategy = GenerationType.AUTO)
+	@Id@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name="no")
 	private Long id;
 	private String name;

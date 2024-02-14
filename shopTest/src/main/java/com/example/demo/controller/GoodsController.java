@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entity.Goods;
+import com.example.demo.entity.Pay;
 import com.example.demo.service.GoodsService;
+import com.example.demo.service.PayService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/goods")
 public class GoodsController {
+	@Autowired
+	private PayService ps;
 
 	@Autowired
 	private GoodsService gs;
@@ -45,9 +50,9 @@ public class GoodsController {
 	public String insertGoods(Goods goods, Model model) {
 		
 		model.addAttribute("list",goods);
-		
+		 
 		return "/goods/insertGoods";
-		
+		  
 	}
 	@PostMapping("/insertGoods")
 	public String insertGoods(Goods goods,HttpServletRequest req) {
@@ -66,8 +71,7 @@ public class GoodsController {
 			}catch(Exception e) {
 				System.out.println("파일 이미지 등록 오류 : " + e.getMessage());
 			}
-		}
-		
+		}    
 		
 		gs.insert(goods);
 		
@@ -80,5 +84,14 @@ public class GoodsController {
 		model.addAttribute("list",gs.findById(id));
 		return "goods/detailGoods";  
 	}
+	   
+	@GetMapping("/payment")
+	@ResponseBody
+	public String payment(Pay pay) {
+		ps.insert(pay);
+		return "OK";
+		
+	}
+
 	
 }

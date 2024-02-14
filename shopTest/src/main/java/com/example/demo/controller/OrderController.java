@@ -36,16 +36,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("/payok")
-	public String orderSubmit(Order order ) {
-		os.insert(order);
-		System.out.println(order.getAddr());
-		System.out.println(order.getEmail());
-		System.out.println(order.getGoodsName());
-		System.out.println(order.getName());
-		System.out.println(order.getPrice());
-		System.out.println(order.getTel());
-		System.out.println(order.getId());
-		
-		return "redirect:/goods/listGoods";
+	public void orderSubmit() {
+				
 	}
 }
