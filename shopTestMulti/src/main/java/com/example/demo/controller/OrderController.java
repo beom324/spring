@@ -27,11 +27,15 @@ public class OrderController {
 	@Autowired
 	private OrderService os;
 	
-	@GetMapping("/orderCheck/{id}")
-	public String orderCheck(@PathVariable Long id, Model model,HttpSession session) {
+	@GetMapping("/orderCheck/{id}/{qty}")
+	public String orderCheck(@PathVariable Long id,@PathVariable(required = false) int qty, Model model,HttpSession session) {
+		if(qty==0	) {
+			qty=1;
+		}
 		String username = (String)session.getAttribute("id");
 		model.addAttribute("list",ms.findById(username));
 		model.addAttribute("goods",gs.findById(id));
+		model.addAttribute("qty",qty);
 		return "order/orderCheck"; 
 		
 	}

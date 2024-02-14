@@ -65,14 +65,16 @@
 
 <h1>주문 정보</h1>
 <hr>
-<span id="id" th:text="${list.id}"></span><br>
-<span id="no" th:text="${goods.id}"></span><br>
-<span id="name" th:text="${list.name}"></span><br>
-<span id="tel" th:text="${list.tel}"></span><br>
-<span id="email" th:text="${list.email}"></span><br>
-<span id="addr" th:text="${list.addr}"></span><br>
-<span id="item" th:text="${goods.name}"></span><br>
-<span id="price" th:text="${goods.price}"></span><br>
+고객번호 : <span id="id" th:text="${list.id}"></span><br>
+상품번호 : <span id="no" th:text="${goods.id}"></span><br>
+고객명 : <span id="name" th:text="${list.name}"></span><br>
+전화번호 :<span id="tel" th:text="${list.tel}"></span><br>
+이메일 : <span id="email" th:text="${list.email}"></span><br>
+주소 : <span id="addr" th:text="${list.addr}"></span><br>
+상품명 : <span id="item" th:text="${goods.name}"></span><br>
+가격 :<span id="oneprice" th:text="${goods.price}"></span><br>
+수량 :<span id="qty" th:text="${qty}"></span><br>
+총가격 : <span id="price" th:text="${goods.price*qty}"></span><br>
 
 <h3>위의 주문정보로 결제할까요?</h3>
 <button id="order">결제</button>

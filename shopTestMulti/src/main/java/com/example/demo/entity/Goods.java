@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Transient;
 import lombok.Data;
@@ -26,5 +27,8 @@ public class Goods {
 	private String fname;
 	@Transient//파일업로드를 위한 속성이므로 테이블에서 제외
 	private MultipartFile uploadFile;
-	
+    
+	@OneToOne(mappedBy = "goods")
+	private Cart cart;
+	  
 }

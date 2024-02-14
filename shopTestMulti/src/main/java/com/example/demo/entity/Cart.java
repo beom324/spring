@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 
@@ -17,6 +19,11 @@ public class Cart {
 	
 	private String id; //회원의아이디
 	private Long gno;
+ 
+	@OneToOne
+	@JoinColumn(name="goods_id")
+	private Goods goods;
+	 
 	private int qty;
 
 }
