@@ -11,20 +11,27 @@ import com.example.demo.dao.GoodsDAO;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Goods;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class CartService {
+	
+	@Autowired
+	private  EntityManager em;
 
 	@Autowired
 	private CartDAO dao;
 	@Autowired
 	private GoodsDAO goodsdao;
-	
-	
-	public CartService(CartDAO dao) {
+			
+
+	public CartService(EntityManager em, CartDAO dao, GoodsDAO goodsdao) {
 		super();
+		this.em = em;
 		this.dao = dao;
+		this.goodsdao = goodsdao;
 	}
- 
+
 
 	public void insert(Cart cart) {
 		
@@ -49,7 +56,8 @@ public class CartService {
 		dao.save(cart);
 	}
 	
-
+	
+	
 	public List<Cart> findAllById(String id){
 			return dao.findAllById(id);
 	}			

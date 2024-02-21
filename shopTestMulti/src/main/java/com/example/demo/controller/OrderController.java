@@ -28,8 +28,8 @@ public class OrderController {
 	private OrderService os;
 	
 	@GetMapping("/orderCheck/{id}/{qty}")
-	public String orderCheck(@PathVariable Long id,@PathVariable(required = false) int qty, Model model,HttpSession session) {
-		if(qty==0	) {
+	public String orderCheck(@PathVariable Long id,@PathVariable(required = false) Integer qty, Model model,HttpSession session) {
+		if(qty==null	) {
 			qty=1;
 		}
 		String username = (String)session.getAttribute("id");

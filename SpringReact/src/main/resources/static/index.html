@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Vue.js 라이브러리를 불러옵니다. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+	<h1>도서관리시스템</h1>
+	<hr />
+	<div id="box">{{msg}}</div>
+
+	<div id="box2">{{name}}</div>
+
+
+	<div id="box3">
+		<p v-if="seen">이제 나를 볼 수 있어요</p>
+	</div>
+
+
+	<div id="box4">
+		<ol>
+			<li v-for="todo in todos">{{todo.text}}</li>
+		</ol>
+	</div>
+	<div id="box5">
+		<table id="book">
+			<tr>
+				<th>책번호</th>
+				<th>책이름</th>
+				<th>가격</th>
+				<th>출판사</th>
+			</tr>
+			<tr v-for="b in list">
+				<td>{{b.bookid}}</td>
+				<td>{{b.bookname}}</td>
+				<td>{{b.price}}</td>
+				<td>{{b.publisher}}</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<hr/>
+	<div id = "box6">
+		<p>{{msg}}</p>
+		<button v-on:click="pro">거꾸로 뒤집기</button>
+	</div>
+	
+	<div id="box7">
+		<p>{{name}}</p>
+		<input type="text" v-model="name">
+	</div>
+	
+
+	<script>
+	
+	var box7 = new Vue({
+		el:'#box7',
+		data:{
+			name:'홍길동'
+		}		
+	})
+		
+	var box5 = new Vue({
+		el:'#box6', //뷰 컴포넌트를 적용할 대상
+		data : {
+			msg:'hello'
+		},
+		methods : {
+			pro:function(){
+				this.msg = this.msg.split("").reverse().join("");
+			}
+		}
+	})
+	
+		var box = new Vue({
+			el : '#box',
+			data : {
+				msg : '안녕하세요 Vue!'
+			}
+		})
+
+		var box2 = new Vue({
+			el : "#box2",
+			data : {
+				name : "홍길동" + new Date().toLocaleString()
+			}
+
+		})
+
+		var box3 = new Vue({
+			el : "#box3",
+			data : {
+				seen : true
+			}
+		})
+
+		var box4 = new Vue({
+			el : "#box4",
+			data : {
+				todos : [ {
+					text : 'JavaScript 배우기'
+				}, {
+					text : 'Vue 배우기'
+				}, {
+					text : '무언가 멋진 것을 만들기'
+				} ]
+			}
+		})
+
+		var book = new Vue({
+			el : "#book",
+			data : {
+				list : [ {
+					bookid : 1,
+					bookname : '축구의 역사',
+					price : 9000,
+					publisher : '굿스포츠'
+				}, {
+					bookid : 2,
+					bookname : '자바',
+					price : 15000,
+					publisher : '쌍용미디어'
+				}, {
+					bookid : 3,
+					bookname : '오라클',
+					price : 9000,
+					publisher : '쌍용'
+				} ]
+
+			}
+		})
+	
+	
+						
+	</script>
+
+</body>
+</html>

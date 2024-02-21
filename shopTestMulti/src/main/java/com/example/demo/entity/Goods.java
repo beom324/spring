@@ -30,5 +30,5 @@ public class Goods {
     
 	@OneToOne(mappedBy = "goods")
 	private Cart cart;
-	  
+	   
 }

@@ -1,6 +1,4 @@
 package com.example.demo.controller;
-
-
 import java.io.FileOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +36,7 @@ public class GoodsController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
-		User user = (User)authentication.getPrincipal();
-		
+		User user = (User)authentication.getPrincipal();		
 		String id = user.getUsername();
 		 
 		session.setAttribute("id", id);
@@ -75,7 +72,6 @@ public class GoodsController {
 		}    
 		
 		gs.insert(goods);
-		
 		return "redirect:/goods/listGoods";
 	}
 	
@@ -92,7 +88,5 @@ public class GoodsController {
 		ps.insert(pay);
 		return "OK";
 		
-	}
-
-	
+	}	
 }
