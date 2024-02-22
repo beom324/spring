@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.BookDAO;
 import com.example.demo.entity.Book;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,6 +25,7 @@ public class BookService {
 	public List<Book> listBook(){
 		return dao.findAll();
 	}
+	@Transactional
 	public void insertBook(Book book) {
 		dao.save(book);
 	}

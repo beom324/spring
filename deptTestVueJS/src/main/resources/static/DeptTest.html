@@ -12,7 +12,7 @@
 		부서명 : <input type="text" v-model="d.dname"></br>
 		부서위치 : <input type="text"v-model="d.dloc"></br>
 		<input type="file" v-on:change="handleFileChange"><br><!-- text데이터는 v-model을 사용하지만 파일은 이벤트메소드 활용 -->
-		<button>등록</button>
+		<button v-on:click="callAjax('/insertDept')">등록</button>
 		<hr>
 
 	</div>
@@ -24,6 +24,7 @@
 				<th>부서번호</th>
 				<th>부서명</th>
 				<th>부서위치</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -31,11 +32,47 @@
 				<td>{{d.id}}</td>
 				<td>{{d.dname}}</td>
 				<td>{{d.dloc}}</td>
+				
 			</tr>
 		</tbody>
 	</table>
 	
 	<script>
+	var deptForm = new Vue({
+		el:"#deptForm",
+		data :{
+			d:{
+				dno:0,
+				dname:"",
+				dloc:"",
+				uploadFile:null
+			}
+		},
+		methods:{
+			handleFileChange:function(event){//어떤파일을 선택했는지에 대해 매개변수로 전달받는다
+				this.d.uploadFile = event.target.files[0]
+			},
+			callAjax:function(url){
+				//ajax통신으로 파일업로드를 위해서는 FormData에 담아서 보내야 합니다.
+				let formData = new FormData();//js객체
+				formData.append("id",this.d.dno); //담기위해 append함수 사용
+				formData.append("dname",this.d.dname); //담기위해 append함수 사용 
+				formData.append("dloc",this.d.dloc); //담기위해 append함수 사용
+				formData.append("uploadFile",this.d.uploadFile); //담기위해 append함수 사용
+				
+				axios.post(url,formData,axiosConfig).then(function(){
+					location.reload();
+				});
+			}
+		}
+	})
+	
+	const axiosConfig = {
+			headers : {
+				"Content-Type" : "multipart/form-data"
+			}
+		}
+
 	axios.get("/listDept").then(function(res){
 		var dept = new Vue({
 			el:"#dept",

@@ -19,5 +19,9 @@ public class DeptService {
 		return dao.findAll();
 	}
 	
+	public void save(Dept d) {
+		dao.save(d);
+	}
+	
 
 }
