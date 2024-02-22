@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id ="deptForm">
+		부서번호 : <input type="text" v-model="d.dno"></br>
+		부서명 : <input type="text" v-model="d.dname"></br>
+		부서위치 : <input type="text"v-model="d.dloc"></br>
+		<input type="file" v-on:change="handleFileChange"><br><!-- text데이터는 v-model을 사용하지만 파일은 이벤트메소드 활용 -->
+		<button>등록</button>
+		<hr>
+
+	</div>
+
+
+	<table id="dept">
+		<thead>
+			<tr>
+				<th>부서번호</th>
+				<th>부서명</th>
+				<th>부서위치</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="d in list">
+				<td>{{d.id}}</td>
+				<td>{{d.dname}}</td>
+				<td>{{d.dloc}}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<script>
+	axios.get("/listDept").then(function(res){
+		var dept = new Vue({
+			el:"#dept",
+			data : {
+				list : res.data
+			}
+		})
+		
+	}) 
+	</script>
+</body>
+</html>

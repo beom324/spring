@@ -8,17 +8,17 @@
 
 </head>
 <body>
-	
+
 	<div id="bookForm">
-		도서명 : <input type="text" v-model="b.bookname"/><br />
-		가격 : <input type="text" v-model="b.price"/><br />
-		출판사 : <input type="text" v-model="b.publisher"/><br />
-		<button v-on:click="insertBook">등록</button>	
-		<button v-on:click="updateBook">수정</button>	
-		<button v-on:click="deleteBook">삭제</button>	
+		도서명 : <input type="text" v-model="b.bookname" /><br /> 가격 : <input
+			type="text" v-model="b.price" /><br /> 출판사 : <input type="text"
+			v-model="b.publisher" /><br />
+		<button v-on:click="insertBook">등록</button>
+		<button v-on:click="updateBook">수정</button>
+		<button v-on:click="deleteBook">삭제</button>
 	</div>
 	<hr />
-	<table id="book">		
+	<table id="book">
 		<thead>
 			<tr>
 				<th>도서번호</th>
@@ -28,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="b in list">
+			<tr v-for="b in list" v-on:click="selectBook(b)">
 				<td>{{b.bookid}}</td>
 				<td>{{b.bookname}}</td>
 				<td>{{b.price}}</td>
@@ -36,39 +36,56 @@
 			</tr>
 		</tbody>
 	</table>
-		
+
 	<script>
 		const axiosConfig = {
-                headers:{
-                    "Content-Type":"application/x-www-form-urlencoded"
-                }
-        }
-        
+			headers : {
+				"Content-Type" : "application/x-www-form-urlencoded"
+			}
+		}
+
 		var bookForm = new Vue({
-			el:"#bookForm",
-			data:{
-				b:{
-					bookname:"",
-					price:0,
-					publisher:""
+			el : "#bookForm",
+			data : {
+				b : {
+					bookname : "",
+					price : 0,
+					publisher : ""
 				}
 			},
-			methods:{
-				insertBook:function(){
-					axios.post("/insertBook",this.b,axiosConfig).then(function(){
-						location.reload();
-					});
+			methods : {
+				insertBook : function() {
+					axios.post("/insertBook", this.b, axiosConfig).then(
+							function() {
+								location.reload();
+							});
 				},
-				updateBook:function(){},
-				deleteBook:function(){}
+				updateBook : function() {
+					axios.post("/updateBook", this.b, axiosConfig).then(
+							function() {
+								location.reload();
+							});
+				},
+				deleteBook : function() {
+					axios.post("/deleteBook", this.b, axiosConfig).then(
+							function() {
+								location.reload();
+							});
+				}
 			}
 		});
-		
-		axios.get("/listBook").then(function(res){
+
+		axios.get("/listBook").then(function(res) {
 			var book = new Vue({
-				el:"#book",
-				data:{
-					list:res.data
+				el : "#book",
+				data : {
+					list : res.data
+				},
+				methods : {
+					selectBook : function(b) {
+						bookForm.b=b
+					}
+
 				}
 			});
 		});

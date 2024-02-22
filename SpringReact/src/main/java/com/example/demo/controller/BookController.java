@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.w3c.dom.ls.LSOutput;
 
 import com.example.demo.entity.Book;
 import com.example.demo.service.BookService;
@@ -31,6 +32,10 @@ public class BookController {
 		b.setBookid(bs.getNextNo());
 		bs.insertBook(b);;
 		return "OK";
+		
+		
 	}
+
+
 
 }
