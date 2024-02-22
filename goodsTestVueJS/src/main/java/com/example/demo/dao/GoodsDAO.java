@@ -11,5 +11,7 @@ public interface GoodsDAO extends JpaRepository<Goods, Integer> {
 	
 	@Query(value = "select nvl(max(no),0)+1 from goods",nativeQuery = true)
 	public int getNextNo();
+	
+	
 
 }

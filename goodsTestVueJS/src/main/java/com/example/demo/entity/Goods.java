@@ -17,7 +17,7 @@ public class Goods {
 	
 	@Id
 	@Column(name = "no")
-	private int id;
+	private int no;
 	
 	private String name;
 	private int price;
@@ -25,7 +25,5 @@ public class Goods {
 	
 	private String fname;
 	
-	@Transient
-	private MultipartFile uploadFile;
 
 }
